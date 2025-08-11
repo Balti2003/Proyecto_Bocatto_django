@@ -1,4 +1,5 @@
 {% extends "general/layout.html" %}
+{% load static %}
 
 {% block head_title %}Bienvenido a nuestro E-commerce{% endblock %}
 
@@ -6,35 +7,80 @@
 <div class="container py-5">
     {% include '_includes/_messages.html' %}
 
-    <div class="card shadow-sm border-0 mb-5">
-        <div class="card-body text-center">
-            <h1 class="card-title fw-bold">Bienvenido a nuestro E-commerce</h1>
-            <p class="card-text lead">
-                Aquí encontrarás una amplia variedad de productos para satisfacer tus necesidades comerciales.
-            </p>
-        </div>
-    </div>
-
-    <div class="mb-5">
-        <h2 class="text-center text-success fw-bold mb-4">¿Qué es este sistema?</h2>
-        <p class="text-center fs-5">
-            Este sistema de gestión de clientes (CRM) está diseñado para ayudarte a organizar, analizar y aprovechar al máximo la información comercial de tu empresa. 
-            Podrás gestionar clientes potenciales, registrar interacciones y optimizar tus relaciones comerciales de forma eficiente y centralizada.
-        </p>
-        <p class="text-center fs-5">
-            Nuestro objetivo es brindarte una herramienta clara y práctica para tomar decisiones estratégicas basadas en datos, mejorar la productividad del equipo de ventas y fortalecer el vínculo con tus clientes.
-        </p>
-    </div>
-
-    <div class="col-md-4 mx-auto">
-        <div class="card shadow-sm border-0">
-            <div class="card-body text-center">
-                <p class="mb-0">Estás logueado como:</p>
-                <strong class="text-primary">{{ user.get_username }}</strong>
+    <!-- Carrusel -->
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'img/banner1.jpg' %}" class="d-block w-100" alt="Promo 1">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/banner2.jpg' %}" class="d-block w-100" alt="Promo 2">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/banner3.jpg' %}" class="d-block w-100" alt="Promo 3">
             </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
     </div>
 
-</div>
+    <!-- Categorías -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Categorías</h2>
+            <div class="row text-center">
+                {% for categoria in categorias %}
+                <div class="col-md-3 mb-4">
+                    <div class="card p-3 shadow-sm h-100">
+                        <img src="{% static 'img/categoria-placeholder.jpg' %}" class="card-img-top" alt="{{ categoria.nombre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ categoria.nombre }}</h5>
+                            {% if categoria.descripcion %}
+                                <p class="card-text">{{ categoria.descripcion|truncatechars:60 }}</p>
+                            {% endif %}
+                            <a href="{% url 'productos_por_categoria' categoria.id %}" class="btn btn-primary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">No hay categorías disponibles.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos destacados -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Productos Destacados</h2>
+            <div class="row">
+                {% for producto in productos %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if producto.imagen %}
+                            <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                        {% else %}
+                            <img src="{% static 'img/producto-placeholder.jpg' %}" class="card-img-top" alt="{{ producto.nombre }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text text-muted">{{ producto.descripcion|truncatechars:80 }}</p>
+                            <p class="fw-bold">${{ producto.precio }}</p>
+                            <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn btn-success w-100">Agregar al carrito</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">No hay productos disponibles.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 {% endblock %}

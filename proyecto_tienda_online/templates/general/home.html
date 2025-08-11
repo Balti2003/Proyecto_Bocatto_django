@@ -1,0 +1,40 @@
+{% extends "general/layout.html" %}
+
+{% block head_title %}Bienvenido a nuestro E-commerce{% endblock %}
+
+{% block page_content %}
+<div class="container py-5">
+    {% include '_includes/_messages.html' %}
+
+    <div class="card shadow-sm border-0 mb-5">
+        <div class="card-body text-center">
+            <h1 class="card-title fw-bold">Bienvenido a nuestro E-commerce</h1>
+            <p class="card-text lead">
+                Aquí encontrarás una amplia variedad de productos para satisfacer tus necesidades comerciales.
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-5">
+        <h2 class="text-center text-success fw-bold mb-4">¿Qué es este sistema?</h2>
+        <p class="text-center fs-5">
+            Este sistema de gestión de clientes (CRM) está diseñado para ayudarte a organizar, analizar y aprovechar al máximo la información comercial de tu empresa. 
+            Podrás gestionar clientes potenciales, registrar interacciones y optimizar tus relaciones comerciales de forma eficiente y centralizada.
+        </p>
+        <p class="text-center fs-5">
+            Nuestro objetivo es brindarte una herramienta clara y práctica para tomar decisiones estratégicas basadas en datos, mejorar la productividad del equipo de ventas y fortalecer el vínculo con tus clientes.
+        </p>
+    </div>
+
+    <div class="col-md-4 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <p class="mb-0">Estás logueado como:</p>
+                <strong class="text-primary">{{ user.get_username }}</strong>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,3 +1,48 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
+class Category(models.Model): # Categorias de productos
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Product(models.Model): # Producto que se vende
+    nombre = models.CharField(max_length=200)
+    descripcion = models.TextField()
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    stock = models.IntegerField()
+    categoria = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='productos')
+    imagen = models.ImageField(upload_to='productos/', blank=True, null=True)
+    
+    def __str__(self):
+        return self.nombre
+
+
+class Order(models.Model): # Orden de compra hecha por un usuario
+    ESTADOS = [
+        ('pendiente', 'Pendiente'),
+        ('enviado', 'Enviado'),
+        ('cancelado', 'Cancelado'),
+    ]
+
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='pedidos')
+    fecha = models.DateTimeField(auto_now_add=True)
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def __str__(self):
+        return f"Pedido #{self.id} - {self.usuario}"
+
+
+class OrderItem(models.Model): #Esta tabla une prodcutos con el pedido de un usuario, un pedido puede tener muchos productos
+    pedido = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    producto = models.ForeignKey(Product, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.cantidad} x {self.producto.nombre}"

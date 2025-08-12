@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, ContactForm
 from django.contrib.auth.decorators import login_required
 from .models import Category, Product
 
@@ -53,6 +53,20 @@ class RegisterView(CreateView):
 
 class LegalView(TemplateView):
     template_name = '../templates/general/legal.html'
+
+
+class ContactView(TemplateView, FormView):
+    template_name = '../templates/general/contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('contact')
+    
+    def form_valid(self, form):
+        nombre = form.cleaned_data['nombre']
+        email = form.cleaned_data['email']
+        mensaje = form.cleaned_data['mensaje']
+        
+        messages.add_message(self.request, messages.SUCCESS, "Mensaje enviado correctamente")
+        return super().form_valid(form)
     
     
     

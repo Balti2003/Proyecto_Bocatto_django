@@ -42,7 +42,7 @@
                             {% if categoria.descripcion %}
                                 <p class="card-text">{{ categoria.descripcion|truncatechars:60 }}</p>
                             {% endif %}
-                            <a href="{% url 'productos_por_categoria' categoria.id %}" class="btn btn-primary">Ver más</a>
+                            <a href="{% comment %} {% url 'productos_por_categoria' categoria.id %} {% endcomment %}" class="btn btn-primary">Ver más</a>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                             <h5 class="card-title">{{ producto.nombre }}</h5>
                             <p class="card-text text-muted">{{ producto.descripcion|truncatechars:80 }}</p>
                             <p class="fw-bold">${{ producto.precio }}</p>
-                            <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn btn-success w-100">Agregar al carrito</a>
+                            <a href="{% comment %} {% url 'agregar_al_carrito' producto.id %} {% endcomment %}" class="btn btn-success w-100">Agregar al carrito</a>
                         </div>
                     </div>
                 </div>

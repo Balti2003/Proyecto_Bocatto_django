@@ -1,0 +1,32 @@
+{% extends "general/layout.html" %}
+
+{% load static %}
+
+{% block head_title %}{{ categoria.nombre }}{% endblock %}
+
+{% block page_content %}
+<div class="container py-5">
+    <h2 class="mb-4">Productos en {{ categoria.nombre }}</h2>
+    <div class="row">
+        {% for producto in productos %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                {% else %}
+                    <img src="{% static 'img/producto-placeholder.jpg' %}" class="card-img-top" alt="{{ producto.nombre }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">{{ producto.descripcion|truncatechars:80 }}</p>
+                    <p class="fw-bold">${{ producto.precio }}</p>
+                    <a href="{% comment %} {% url 'product_detail' producto.id %} {% endcomment %}" class="btn btn-success w-100">Ver producto</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No hay productos en esta categoría.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -34,7 +34,7 @@
                     <h5 class="card-title">{{ producto.nombre }}</h5>
                     <p class="card-text text-muted">{{ producto.descripcion|truncatechars:80 }}</p>
                     <p class="fw-bold">${{ producto.precio }}</p>
-                    <a href="{% comment %} {% url 'product_detail' producto.id %} {% endcomment %}" class="btn btn-success w-100">Ver producto</a>
+                    <a href="{% url 'product_detail' producto.id %}" class="btn btn-success w-100">Ver producto</a>
                 </div>
             </div>
         </div>

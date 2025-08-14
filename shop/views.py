@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, FormView, CreateView, ListView
+from django.views.generic import TemplateView, FormView, CreateView, ListView, DetailView
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -103,6 +103,21 @@ class ProductListView(ListView):
         context = super().get_context_data(**kwargs)
         context['categorias'] = Category.objects.all()
         context['categoria_seleccionada'] = self.request.GET.get('categoria')
+        return context
+    
+
+@method_decorator(login_required, name='dispatch')
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = '../templates/shop/products_detail.html'
+    context_object_name = 'producto'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        producto = self.get_object()
+        context['productos_relacionados'] = Product.objects.filter(
+            categoria=producto.categoria
+        ).exclude(id=producto.id)[:4]
         return context
     
     

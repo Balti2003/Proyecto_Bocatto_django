@@ -1,0 +1,61 @@
+{% extends "general/layout.html" %}
+{% load static %}
+
+{% block head_title %}Carrito de compras{% endblock %}
+
+{% block page_content %}
+<div class="container py-5">
+    {% include '_includes/_messages.html' %}
+
+    <h2 class="mb-4 text-center">Carrito de compras</h2>
+
+    {% if carrito %}
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, item in carrito.items %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            {% if item.imagen %}
+                                <img src="{{ item.imagen }}" alt="{{ item.nombre }}" class="me-3" style="width:60px; height:60px; object-fit:cover;">
+                            {% else %}
+                                <img src="{% static 'img/producto-placeholder.jpg' %}" alt="{{ item.nombre }}" class="me-3" style="width:60px; height:60px; object-fit:cover;">
+                            {% endif %}
+                            {{ item.nombre }}
+                        </div>
+                    </td>
+                    <td>${{ item.precio }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>${{ item.subtotal|floatformat:2 }}</td>
+                    <td>
+                        <form method="post" action="{% url 'eliminar_del_carrito' id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end mt-4">
+        <h4>Total: ${{ total|floatformat:2 }}</h4>
+        <a href="#" class="btn btn-primary btn-lg mt-3">Finalizar compra</a>
+    </div>
+
+    {% else %}
+    <p class="text-center">Tu carrito está vacío.</p>
+    {% endif %}
+</div>
+{% endblock %}

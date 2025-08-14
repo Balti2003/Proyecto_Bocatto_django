@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, FormView, CreateView, ListView, DetailView
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import TemplateView, FormView, CreateView, ListView, DetailView, View
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -70,6 +70,7 @@ class ContactView(TemplateView, FormView):
         return super().form_valid(form)
     
 
+# Vistas de productos
 @method_decorator(login_required, name='dispatch')
 class ProductsByCategoryView(ListView):
     model = Product
@@ -120,11 +121,69 @@ class ProductDetailView(DetailView):
         ).exclude(id=producto.id)[:4]
         return context
     
+
+#Vistas de carrito
+@method_decorator(login_required, name='dispatch')
+class CartView(TemplateView):
+    template_name = "../templates/shop/cart.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        carrito = self.request.session.get("carrito", {})
+
+        total = 0
+        for id, item in carrito.items():
+            subtotal = item["precio"] * item["cantidad"]
+            item["subtotal"] = subtotal
+            total += subtotal
+
+        context["carrito"] = carrito
+        context["total"] = total
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class AddToCartView(View):
+    def post(self, request, producto_id):
+        producto = get_object_or_404(Product, id=producto_id)
+        cantidad = int(request.POST.get("cantidad", 1))
+
+        # Validar stock
+        if cantidad > producto.stock:
+            messages.error(request, f"No puedes agregar más de {producto.stock} unidades.")
+            return redirect("product_detail", pk=producto.id)
+
+        carrito = request.session.get("carrito", {})
+
+        # Si el producto ya está en el carrito
+        if str(producto.id) in carrito:
+            nueva_cantidad = carrito[str(producto.id)]["cantidad"] + cantidad
+            if nueva_cantidad > producto.stock:
+                messages.error(request, f"No puedes tener más de {producto.stock} unidades de este producto.")
+                return redirect("product_detail", pk=producto.id)
+            carrito[str(producto.id)]["cantidad"] = nueva_cantidad
+        else:
+            carrito[str(producto.id)] = {
+                "nombre": producto.nombre,
+                "precio": float(producto.precio),
+                "cantidad": cantidad,
+                "imagen": producto.imagen.url if producto.imagen else None
+            }
+
+        request.session["carrito"] = carrito
+        messages.success(request, f"{cantidad} unidad(es) de {producto.nombre} agregadas al carrito.")
+        return redirect("carrito")
     
-    
-    
-    
-    
+
+@method_decorator(login_required, name='dispatch')
+class RemoveFromCartView(View):
+    def post(self, request, producto_id):
+        carrito = request.session.get("carrito", {})
+        if str(producto_id) in carrito:
+            del carrito[str(producto_id)]
+            request.session["carrito"] = carrito
+            messages.success(request, "Producto eliminado del carrito.")
+        return redirect("carrito")
     
     
 # Vista de logout   

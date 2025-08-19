@@ -1,0 +1,46 @@
+{% extends "general/layout.html" %}
+{% load static %}
+
+{% block head_title %}Detalle del pedido{% endblock %}
+
+{% block page_content %}
+<div class="container py-5">
+    {% include '_includes/_messages.html' %}
+    
+    <h2 class="fw-bold mb-4">Detalle del Pedido #{{ order.id }}</h2>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <p><strong>Usuario:</strong> {{ order.usuario.username }}</p>
+            <p><strong>Fecha:</strong> {{ order.fecha|date:"d/m/Y H:i" }}</p>
+            <p><strong>Estado:</strong> 
+                <span class="badge bg-info">{{ order.estado }}</span>
+            </p>
+            <h5 class="mt-4">Productos:</h5>
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.producto.nombre }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>${{ item.precio_unitario|floatformat:2 }}</td>
+                        <td>${{ item.subtotal|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h4 class="text-end">Total: <span class="fw-bold">${{ order.total|floatformat:2 }}</span></h4>
+        </div>
+    </div>
+
+    <a href="{% url 'product_list' %}" class="btn btn-primary">Seguir comprando</a>
+</div>
+{% endblock %}

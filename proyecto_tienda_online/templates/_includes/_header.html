@@ -35,6 +35,10 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'order_list' %}">Mis pedidos</a>
+                        </li>
+                        
+                        <li class="nav-item">
                             <a class="nav-link text-danger" href="{% url 'logout' %}">Cerrar sesión</a>
                         </li>
                     {% endif %}

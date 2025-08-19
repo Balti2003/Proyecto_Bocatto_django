@@ -1,5 +1,6 @@
+from django.utils import timezone
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import TemplateView, FormView, CreateView, ListView, DetailView, View
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
@@ -7,8 +8,9 @@ from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from .forms import LoginForm, RegistrationForm, ContactForm
 from django.contrib.auth.decorators import login_required
-from .models import Category, Product
+from .models import Category, Product, Order, OrderItem
 from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Vistas generales
 class HomeView(TemplateView):
@@ -185,7 +187,96 @@ class RemoveFromCartView(View):
             messages.success(request, "Producto eliminado del carrito.")
         return redirect("carrito")
     
-    
+
+@method_decorator(login_required, name='dispatch')
+class CheckoutView(LoginRequiredMixin, View):
+    template_name = "../templates/shop/checkout.html"
+
+    def get(self, request, *args, **kwargs):
+        carrito = request.session.get("carrito", {})
+        if not carrito:
+            messages.warning(request, "Tu carrito está vacío.")
+            return redirect("carrito")
+
+        total = 0
+        for prod_id, item in carrito.items():
+            item["subtotal"] = item["precio"] * item["cantidad"]
+            total += item["subtotal"]
+
+        return render(request, self.template_name, {
+            "carrito": carrito,
+            "total": total
+        })
+
+    def post(self, request, *args, **kwargs):
+        carrito = request.session.get("carrito", {})
+        if not carrito:
+            messages.error(request, "No hay productos en el carrito para procesar el pedido.")
+            return redirect("carrito")
+
+        total = sum(item["precio"] * item["cantidad"] for item in carrito.values())
+
+        # Crear el pedido
+        order = Order.objects.create(
+            usuario=request.user,
+            fecha=timezone.now(),
+            total=total,
+            estado="pendiente"
+        )
+
+        # Crear los items asociados al pedido
+        for prod_id, item in carrito.items():
+            producto = Product.objects.get(id=prod_id)
+
+            OrderItem.objects.create(
+                pedido=order,
+                producto=producto,
+                cantidad=item["cantidad"],
+                precio_unitario=item["precio"]
+            )
+
+            # Actualizar stock
+            producto.stock -= item["cantidad"]
+            producto.save()
+
+        # Vaciar carrito de la sesión
+        request.session["carrito"] = {}
+
+        messages.success(request, f"Tu pedido #{order.id} ha sido creado con éxito.")
+        return redirect("order_detail", pk=order.id)
+
+
+@method_decorator(login_required, name='dispatch')
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = "../templates/shop/order_detail.html"
+    context_object_name = "order"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = self.get_object()
+        items = order.items.all()
+
+        # Agregar subtotales por cada item
+        for item in items:
+            item.subtotal = item.cantidad * item.precio_unitario
+
+        context["items"] = items
+        context["total"] = order.total
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class OrderListView(ListView):
+    model = Order
+    template_name = "../templates/shop/order_list.html"
+    context_object_name = "orders"
+
+    def get_queryset(self):
+        # Solo mostrar pedidos del usuario logueado
+        return Order.objects.filter(usuario=self.request.user).order_by("-fecha")
+
+
 # Vista de logout   
 @login_required
 def logout_view(request):

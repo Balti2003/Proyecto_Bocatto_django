@@ -51,7 +51,13 @@
 
     <div class="text-end mt-4">
         <h4>Total: ${{ total|floatformat:2 }}</h4>
-        <a href="#" class="btn btn-primary btn-lg mt-3">Finalizar compra</a>
+
+        <form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success btn-lg">
+                Finalizar compra
+            </button>
+        </form>
     </div>
 
     {% else %}

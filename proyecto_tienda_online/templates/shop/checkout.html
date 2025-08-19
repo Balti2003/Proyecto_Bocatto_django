@@ -1,0 +1,56 @@
+{% extends "general/layout.html" %}
+{% load static %}
+
+{% block head_title %}Finalizar compra{% endblock %}
+
+{% block page_content %}
+<div class="container py-5">
+    {% include '_includes/_messages.html' %}
+    
+    <h2 class="fw-bold mb-4">Finalizar compra</h2>
+
+    {% if carrito %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">Resumen del pedido</h5>
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio unitario</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, item in carrito.items %}
+                            <tr>
+                                <td>
+                                    {% if item.imagen %}
+                                        <img src="{{ item.imagen }}" alt="{{ item.nombre }}" width="50" class="me-2 rounded">
+                                    {% endif %}
+                                    {{ item.nombre }}
+                                </td>
+                                <td>{{ item.cantidad }}</td>
+                                <td>${{ item.precio|floatformat:2 }}</td>
+                                <td>${{ item.subtotal|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h4 class="text-end mt-3">Total: <span class="fw-bold">${{ total|floatformat:2 }}</span></h4>
+                </div>
+            </div>
+            <form method="post" action="{% url 'checkout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success btn-lg">Confirmar compra</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+        <p>No hay productos en el carrito.</p>
+    {% endif %}
+</div>
+{% endblock %}

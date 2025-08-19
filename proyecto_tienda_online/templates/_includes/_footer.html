@@ -1,10 +1,50 @@
 <footer class="bg-dark text-light py-4 border-top mt-auto">
-  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-    <p class="mb-2 mb-md-0 text-center text-md-start">
-      © 2025 Mi Tienda Online • Todos los derechos reservados
-    </p>
-    <p class="mb-0 text-center text-md-end">
-      <a href="{% url 'legal' %}" class="text-decoration-none text-light">Aviso legal</a>
-    </p>
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- Información del sitio -->
+      <div class="col-md-4 mb-3 mb-md-0 text-center text-md-start">
+        <h5 class="text-primary fw-bold mb-1">🛍️ Mi Tienda Online</h5>
+      </div>
+
+      <!-- Enlaces útiles -->
+      <div class="col-md-4 mb-3 mb-md-0 text-center">
+        <h6 class="text-primary fw-bold mb-2">Enlaces</h6>
+        <a href="{% url 'home' %}" class="text-light text-decoration-none me-2">Inicio</a>
+        <a href="{% url 'product_list' %}" class="text-light text-decoration-none me-2">Productos</a>
+        <a href="{% url 'contact' %}" class="text-light text-decoration-none">Contacto</a>
+      </div>
+
+      <!-- Contacto y redes -->
+      <div class="col-md-4 text-center text-md-end">
+        <h6 class="text-primary fw-bold mb-2">Contacto</h6>
+        <p class="mb-1"><a href="mailto:baltasarlomello@live.com" class="text-light text-decoration-none">baltasarlomello@live.com</a></p>
+        <div>
+          <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="border-light my-3">
+
+    <div class="d-flex justify-content-between flex-column flex-md-row text-center text-md-start">
+      <p class="mb-0">© 2025 Mi Tienda Online • Todos los derechos reservados</p>
+      <p class="mb-0"><a href="{% url 'legal' %}" class="text-light text-decoration-none">Aviso legal</a></p>
+    </div>
   </div>
 </footer>
+
+<style>
+  footer a:hover {
+    color: #0d6efd;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+
+  footer hr {
+    opacity: 0.3;
+  }
+</style>

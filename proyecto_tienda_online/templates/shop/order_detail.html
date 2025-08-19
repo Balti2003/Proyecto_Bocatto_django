@@ -6,41 +6,68 @@
 {% block page_content %}
 <div class="container py-5">
     {% include '_includes/_messages.html' %}
-    
-    <h2 class="fw-bold mb-4">Detalle del Pedido #{{ order.id }}</h2>
 
-    <div class="card shadow-sm mb-4">
+    <h2 class="fw-bold mb-4 text-center">Detalle del Pedido #{{ order.id }}</h2>
+
+    <div class="card shadow-lg rounded-4 mb-4 border-0">
         <div class="card-body">
-            <p><strong>Usuario:</strong> {{ order.usuario.username }}</p>
-            <p><strong>Fecha:</strong> {{ order.fecha|date:"d/m/Y H:i" }}</p>
-            <p><strong>Estado:</strong> 
-                <span class="badge bg-info">{{ order.estado }}</span>
-            </p>
-            <h5 class="mt-4">Productos:</h5>
-            <table class="table align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio unitario</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in order.items.all %}
-                    <tr>
-                        <td>{{ item.producto.nombre }}</td>
-                        <td>{{ item.cantidad }}</td>
-                        <td>${{ item.precio_unitario|floatformat:2 }}</td>
-                        <td>${{ item.subtotal|floatformat:2 }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <h4 class="text-end">Total: <span class="fw-bold">${{ order.total|floatformat:2 }}</span></h4>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <p><strong>Usuario:</strong> {{ order.usuario.username }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Fecha:</strong> {{ order.fecha|date:"d/m/Y H:i" }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Estado:</strong>
+                        <span class="badge 
+                            {% if order.estado == 'pendiente' %}bg-warning
+                            {% elif order.estado == 'pagado' %}bg-success
+                            {% else %}bg-secondary{% endif %}">
+                            {{ order.estado|title }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <h5 class="fw-bold mb-3">Productos:</h5>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                        <tr>
+                            <td>{{ item.producto.nombre }}</td>
+                            <td>{{ item.cantidad }}</td>
+                            <td>${{ item.precio_unitario|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="text-end mt-3">Total: <span class="fw-bold">${{ order.total|floatformat:2 }}</span></h4>
         </div>
     </div>
 
-    <a href="{% url 'product_list' %}" class="btn btn-primary">Seguir comprando</a>
+    <div class="text-center">
+        <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg rounded-pill">
+            Seguir comprando
+        </a>
+    </div>
 </div>
+
+<style>
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+</style>
 {% endblock %}

@@ -1,7 +1,10 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{% url 'home' %}">🛍️E-commerce</a>
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home' %}">
+                <span class="fs-4 me-2">🛍️</span>E-commerce
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -20,31 +23,47 @@
                             <a class="nav-link" href="{% url 'register' %}">Registro</a>
                         </li>
                     {% endif %}
-                    
+
                     {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'product_list' %}">Productos</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contact' %}">Contacto</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'carrito' %}">🛒Carrito</a>
+                            <a class="nav-link d-flex align-items-center" href="{% url 'carrito' %}">
+                                <span class="me-1">🛒</span>Carrito
+                            </a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'order_list' %}">Mis pedidos</a>
                         </li>
-                        
                         <li class="nav-item">
-                            <a class="nav-link text-danger" href="{% url 'logout' %}">Cerrar sesión</a>
+                            <a class="nav-link text-danger fw-bold" href="{% url 'logout' %}">Cerrar sesión</a>
                         </li>
                     {% endif %}
-
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
+<style>
+    /* Hover suave en enlaces */
+    .navbar-nav .nav-link {
+        transition: color 0.2s ease, background-color 0.2s ease;
+        border-radius: 6px;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Navbar shadow y transición */
+    nav.navbar {
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+</style>

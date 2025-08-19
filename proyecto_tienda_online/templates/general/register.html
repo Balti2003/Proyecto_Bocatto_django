@@ -1,5 +1,4 @@
 {% extends "general/layout.html" %}
-
 {% load crispy_forms_tags %}
 
 {% block head_title %}Registro | E-commerce{% endblock %}
@@ -10,8 +9,8 @@
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-6 col-lg-5">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-primary text-white">
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-header bg-primary text-white text-center">
                     <h2 class="mb-0">Crear una cuenta</h2>
                 </div>
                 <div class="card-body">
@@ -29,13 +28,24 @@
                         <div class="mb-3">
                             {{ form.password|as_crispy_field }}
                         </div>
-                        <div class="text-end">
+                        <div class="d-grid">
                             <button type="submit" class="btn btn-primary">Registrarse</button>
                         </div>
                     </form>
+                    <p class="text-center mt-3 mb-0">
+                        ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+</style>
 {% endblock %}

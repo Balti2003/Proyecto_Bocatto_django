@@ -31,26 +31,7 @@ Este es un sistema **E-commerce** desarrollado con **Django** para la compra de 
 
 ## 🖼️ Capturas de pantalla
 
-### Header y navegación
-![Header](media/screenshots/header.png)
 
-### Footer
-![Footer](media/screenshots/footer.png)
-
-### Lista de productos
-![Productos](media/screenshots/product_list.png)
-
-### Categorias
-![Productos](media/screenshots/category_home.png)
-
-### Carrito de compras
-![Carrito](media/screenshots/cart.png)
-
-### Lista de pedidos
-![Detalle Pedido](media/screenshots/order_list.png)
-
-### Detalle de pedido
-![Detalle Pedido](media/screenshots/order_detail.png)
 
 ---
 

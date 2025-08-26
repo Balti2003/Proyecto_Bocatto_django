@@ -1,4 +1,4 @@
-# Tienda Online - Proyecto Django
+# Bocatto - Proyecto Django
 
 ![Django](https://img.shields.io/badge/Django-v5.1-green) ![Python](https://img.shields.io/badge/Python-3.12-blue) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
@@ -6,32 +6,19 @@
 
 ## 📌 Descripción
 
-Este es un sistema **E-commerce** desarrollado con **Django** para la compra de productos. Permite a los usuarios registrarse, navegar productos, agregarlos al carrito y generar pedidos.  
-
-> ⚠️ Actualmente, el proyecto permite generar pedidos, pero **no se puede realizar el pago online**.
+...
 
 ---
 
 ## ✨ Funcionalidades
 
-- Registro y autenticación de usuarios (login/logout).  
-- Navegación de productos por categorías.  
-- Gestión de carrito de compras:
-  - Agregar productos.
-  - Modificar cantidad.
-  - Eliminar productos.  
-- Generación de pedidos a partir del carrito.  
-- Visualización de pedidos realizados: 
-  - Detalles de cada pedido (productos, cantidades, subtotales y total).  
-- Interfaz responsive con **Bootstrap 5**.  
-- Mensajes y alertas para acciones de usuario (agregado al carrito, pedido generado, etc.).  
-- Footer y header dinámicos según el estado de autenticación del usuario.  
+...
 
 ---
 
 ## 🖼️ Capturas de pantalla
 
-
+...
 
 ---
 
@@ -39,8 +26,8 @@ Este es un sistema **E-commerce** desarrollado con **Django** para la compra de 
 
 1. Clonar el repositorio:
     ```bash
-    git clone https://github.com/tuusuario/Proyecto_Ecommerce_Django.git
-    cd Proyecto_Ecommerce_Django
+    git clone https://github.com/tuusuario/Proyecto_Bocatto_Django.git
+    cd Proyecto_Bocatto_Django
     ```
 
 2. Crear y activar entorno virtual:
@@ -78,12 +65,7 @@ Este es un sistema **E-commerce** desarrollado con **Django** para la compra de 
 
 ## 🖥️ Uso
 
-1. Registrarse o iniciar sesión.  
-2. Explorar los productos disponibles.  
-3. Agregar productos al carrito y ajustar cantidades.  
-4. Generar un pedido desde el carrito.  
-5. Consultar el historial de pedidos y sus detalles.  
-6. Administrar productos, categorías y pedidos desde Django Admin (si eres superusuario).  
+...
 
 ---
 

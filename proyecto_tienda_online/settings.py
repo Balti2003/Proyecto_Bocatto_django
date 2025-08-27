@@ -72,10 +72,18 @@ WSGI_APPLICATION = 'proyecto_tienda_online.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bocatto_db',
+        'USER': 'bocatto_user',
+        'PASSWORD': 'G7x!p9Qz@3vR#tB2',
+        'HOST': '127.0.0.1',  # en WSL, usá 127.0.0.1
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
+
 
 
 # Password validation

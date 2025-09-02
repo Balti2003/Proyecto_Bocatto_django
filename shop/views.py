@@ -150,19 +150,11 @@ class AddToCartView(View):
         producto = get_object_or_404(Product, id=producto_id)
         cantidad = int(request.POST.get("cantidad", 1))
 
-        # Validar stock
-        if cantidad > producto.stock:
-            messages.error(request, f"No puedes agregar más de {producto.stock} unidades.")
-            return redirect("product_detail", pk=producto.id)
-
         carrito = request.session.get("carrito", {})
 
         # Si el producto ya está en el carrito
         if str(producto.id) in carrito:
             nueva_cantidad = carrito[str(producto.id)]["cantidad"] + cantidad
-            if nueva_cantidad > producto.stock:
-                messages.error(request, f"No puedes tener más de {producto.stock} unidades de este producto.")
-                return redirect("product_detail", pk=producto.id)
             carrito[str(producto.id)]["cantidad"] = nueva_cantidad
         else:
             carrito[str(producto.id)] = {
@@ -234,10 +226,6 @@ class CheckoutView(LoginRequiredMixin, View):
                 cantidad=item["cantidad"],
                 precio_unitario=item["precio"]
             )
-
-            # Actualizar stock
-            producto.stock -= item["cantidad"]
-            producto.save()
 
         # Vaciar carrito de la sesión
         request.session["carrito"] = {}

@@ -27,7 +27,7 @@
     <!-- Categorías -->
     <section class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4 fw-bold text-primary">Categorías</h2>
+            <h2 class="text-center mb-4 fw-bold text-danger">Categorías</h2>
             <div class="row text-center">
                 {% for categoria in categorias %}
                 <div class="col-md-3 mb-4">
@@ -37,7 +37,7 @@
                             {% if categoria.descripcion %}
                                 <p class="card-text text-muted">{{ categoria.descripcion|truncatechars:60 }}</p>
                             {% endif %}
-                            <a href="{% url 'productos_por_categoria' categoria.id %}" class="btn btn-outline-primary w-100 fw-bold">Ver más</a>
+                            <a href="{% url 'productos_por_categoria' categoria.id %}" class="btn btn-outline-danger w-100 fw-bold">Ver más</a>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
     <!-- Productos destacados -->
     <section class="py-5 bg-light" id="productos">
         <div class="container">
-            <h2 class="text-center mb-4 fw-bold text-success">Productos Destacados</h2>
+            <h2 class="text-center mb-4 fw-bold text-danger">Productos Destacados</h2>
             <div class="row">
                 {% for producto in productos %}
                 <div class="col-md-3 mb-4">
@@ -64,11 +64,11 @@
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold">{{ producto.nombre }}</h5>
                             <p class="card-text text-muted">{{ producto.descripcion|truncatechars:80 }}</p>
-                            <p class="fw-bold text-primary fs-5">${{ producto.precio }}</p>
+                            <p class="fw-bold text-dark fs-5">${{ producto.precio }}</p>
                             {% if request.user.is_authenticated %}
-                                <a href="{% url 'product_detail' producto.id %}" class="btn btn-gradient w-100 mt-auto">Ver producto</a>
+                                <a href="{% url 'product_detail' producto.id %}" class="btn btn-danger w-100 mt-auto">Ver producto</a>
                             {% else %}
-                                <a href="{% url 'login' %}" class="btn btn-gradient w-100 mt-auto">Ver producto</a>
+                                <a href="{% url 'login' %}" class="btn btn-danger w-100 mt-auto">Ver producto</a>
                             {% endif %}
                         </div>
                     </div>

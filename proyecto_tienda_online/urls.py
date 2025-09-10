@@ -11,6 +11,7 @@ urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
     path("legal/", LegalView.as_view(), name="legal"),
     path("contact/", ContactView.as_view(), name="contact"),
+    #path("profile/", ProfileView.as_view(), name="profile"),
     
     path('admin/', admin.site.urls),
     path('', include('shop.urls')),

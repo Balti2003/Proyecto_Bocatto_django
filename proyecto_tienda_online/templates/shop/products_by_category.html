@@ -1,6 +1,10 @@
 {% extends "general/layout.html" %}
 {% load static %}
 
+{% block head_extra %}
+<link rel="stylesheet" href="{% static '/css/products_ by_category.css' %}">
+{% endblock %}
+
 {% block head_title %}{{ categoria.nombre }}{% endblock %}
 
 {% block page_content %}
@@ -34,13 +38,4 @@
     </div>
 </div>
 
-<style>
-    .hover-scale {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .hover-scale:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-</style>
 {% endblock %}

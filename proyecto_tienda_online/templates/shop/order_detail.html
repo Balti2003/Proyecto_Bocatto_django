@@ -1,6 +1,10 @@
 {% extends "general/layout.html" %}
 {% load static %}
 
+{% block head_extra %}
+<link rel="stylesheet" href="{% static '/css/order_detail.css' %}">
+{% endblock %}
+
 {% block head_title %}Detalle del pedido{% endblock %}
 
 {% block page_content %}
@@ -63,11 +67,4 @@
     </div>
 </div>
 
-<style>
-    .card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-</style>
 {% endblock %}

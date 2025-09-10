@@ -271,3 +271,5 @@ def logout_view(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, "Has cerrado sesion correctamente")
     return HttpResponseRedirect(reverse('home'))
+def perfil(request):
+    return render(request, "perfil.html", {"usuario": request.user})

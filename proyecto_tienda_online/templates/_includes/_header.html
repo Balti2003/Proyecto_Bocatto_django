@@ -48,7 +48,7 @@
                                 👨🏻‍💼 {{ request.user.username }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
-                                <li><a class="dropdown-item" href="{% comment %} {% url 'profile' %} {% endcomment %}">Mi perfil</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a></li>
                                 <li><a class="dropdown-item" href="{% url 'order_list' %}">Mis pedidos</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-danger fw-bold" href="{% url 'logout' %}">Cerrar sesión</a></li>

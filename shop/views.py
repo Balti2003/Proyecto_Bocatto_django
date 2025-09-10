@@ -55,6 +55,11 @@ class RegisterView(CreateView):
 
 class LegalView(TemplateView):
     template_name = '../templates/general/legal.html'
+  
+
+@method_decorator(login_required, name='dispatch')
+class ProfileView(TemplateView):
+    template_name = '../templates/general/profile.html'
 
 
 @method_decorator(login_required, name='dispatch')

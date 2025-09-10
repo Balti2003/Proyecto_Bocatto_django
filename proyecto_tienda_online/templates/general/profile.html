@@ -1,0 +1,18 @@
+{% extends "general/layout.html" %}
+
+{% load static %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="{% static '/css/profile.css' %}">
+{% endblock %}
+
+{% block head_title %}Mi Perfil | Bocatto{% endblock %}
+
+{% block page_content %}
+<div class="container py-5">
+    {% include '_includes/_messages.html' %}
+
+    <p>a</p>
+</div>
+
+{% endblock %}

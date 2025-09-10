@@ -1,6 +1,12 @@
 {% extends "general/layout.html" %}
 {% load crispy_forms_tags %}
 
+{% load static %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="{% static '/css/login.css' %}">
+{% endblock %}
+
 {% block head_title %}Iniciar sesión | Bocatto{% endblock %}
 
 {% block page_content %}
@@ -27,7 +33,7 @@
                         </div>
                     </form>
                     <p class="text-center mt-3 mb-0">
-                        ¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate aquí</a>
+                        ¿No tienes cuenta? <a href="{% url 'register' %}" id="isesion">Regístrate aquí</a>
                     </p>
                 </div>
             </div>
@@ -35,11 +41,4 @@
     </div>
 </div>
 
-<style>
-    .card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-</style>
 {% endblock %}

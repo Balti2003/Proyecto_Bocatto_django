@@ -1,4 +1,9 @@
 {% extends "general/layout.html" %}
+{% load static %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="{% static '/css/contact.css' %}">
+{% endblock %}
 
 {% block head_title %}Contacto - Bocatto{% endblock %}
 
@@ -45,23 +50,4 @@
     </div>
 </div>
 
-<style>
-    .card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    #id_nombre:focus {
-    border-color: red !important;
-    box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25) !important;
-    }
-    #id_email:focus {
-    border-color: red !important;
-    box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25) !important;
-    }
-    #id_mensaje:focus {
-    border-color: red !important;
-    box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25) !important;
-    }
-</style>
 {% endblock %}

@@ -1,0 +1,27 @@
+/*home*/
+.hover-lift:hover {
+    transform: translateY(-8px);
+    transition: 0.3s;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.25) !important;
+}
+
+.btn-gradient {
+    background: linear-gradient(45deg, #28a745, #198754);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(45deg, #198754, #28a745);
+    color: white;
+}
+
+.carousel-caption h5, .carousel-caption p {
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
+
+.carousel-item img {
+    max-height: 635px;
+    object-fit: cover;
+}

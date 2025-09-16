@@ -12,7 +12,35 @@
 <div class="container py-5">
     {% include '_includes/_messages.html' %}
 
-    <p>a</p>
-</div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4">
 
+                    <h2 class="fw-bold text-center text-danger mb-4">Mi Perfil</h2>
+
+                    <div class="mb-4">
+                        <p><strong>Usuario:</strong> {{ request.user.username }}</p>
+                        <p><strong>Email:</strong> {{ request.user.email }}</p>
+                        <p><strong>Nombre:</strong> {{ request.user.first_name }}</p>
+                        <p><strong>Apellido:</strong> {{ request.user.last_name }}</p>
+                        <p><strong>Fecha de registro:</strong> {{ request.user.date_joined|date:"d/m/Y" }}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-3 justify-content-center">
+                        <a href="{% url 'order_list' %}" class="btn btn-outline-danger fw-bold">
+                            Mis pedidos
+                        </a>
+                        <a href="{% url 'password_change' %}" class="btn btn-outline-dark fw-bold">
+                            Cambiar contraseña
+                        </a>
+                        <a href="{% url 'logout' %}" class="btn btn-danger fw-bold">
+                            Cerrar sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

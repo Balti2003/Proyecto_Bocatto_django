@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Category, Product, Order, OrderItem
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+
 
 # Vistas generales
 class HomeView(TemplateView):
@@ -76,6 +78,17 @@ class ContactView(TemplateView, FormView):
         messages.add_message(self.request, messages.SUCCESS, "Mensaje enviado correctamente")
         return super().form_valid(form)
     
+
+@method_decorator(login_required, name='dispatch')
+class PasswordChangeView(PasswordChangeView):
+    template_name = '../templates/general/password_change.html'
+    success_url = reverse_lazy('password_change_done')
+
+
+@method_decorator(login_required, name='dispatch')
+class PasswordChangeDoneView(PasswordChangeDoneView):
+    template_name = '../templates/general/password_change_done.html'
+
 
 # Vistas de productos
 @method_decorator(login_required, name='dispatch')

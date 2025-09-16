@@ -1,0 +1,32 @@
+{% extends 'general/layout.html' %}
+{% block content %}
+<h2>Gestión de Pedidos (Empleados)</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.usuario.username }}</td>
+            <td>{{ order.fecha|date:'d/m/Y H:i' }}</td>
+            <td>{{ order.get_estado_display }}</td>
+            <td>${{ order.total }}</td>
+            <td>
+                <a href="{% url 'order_detail' order.id %}" class="btn btn-sm btn-primary">Ver detalle</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No hay pedidos registrados.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

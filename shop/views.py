@@ -10,7 +10,7 @@ from .forms import LoginForm, RegistrationForm, ContactForm
 from django.contrib.auth.decorators import login_required
 from .models import Category, Product, Order, OrderItem
 from django.utils.decorators import method_decorator
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Vistas generales
 class HomeView(TemplateView):
@@ -276,3 +276,23 @@ def logout_view(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, "Has cerrado sesion correctamente")
     return HttpResponseRedirect(reverse('home'))
+
+
+class EmployeeDashboardView(UserPassesTestMixin, ListView):
+    model = Order
+    template_name = "shop/employee_dashboard.html"
+    context_object_name = "orders"
+
+    def test_func(self):
+        user = self.request.user
+        return user.is_authenticated and (user.groups.filter(name="Empleado").exists() or user.is_staff)
+
+    def get_queryset(self):
+        return Order.objects.all().order_by("-fecha")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_pedidos"] = Order.objects.count()
+        context["pedidos_enviados"] = Order.objects.filter(estado="enviado").count()
+        context["pedidos_pendientes"] = Order.objects.filter(estado="pendiente").count()
+        return context

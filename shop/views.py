@@ -13,7 +13,6 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 
-
 # Vistas generales
 class HomeView(TemplateView):
     template_name = "../templates/general/home.html"

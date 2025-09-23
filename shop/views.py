@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
+
+from shop.mixins import RoleRequiredMixin
 from .forms import LoginForm, RegistrationForm, ContactForm
 from django.contrib.auth.decorators import login_required
 from .models import Category, Product, Order, OrderItem
@@ -14,7 +16,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 
 # Vistas generales
-class HomeView(TemplateView):
+
+#Home para clientes
+class HomeView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
+    role = "Clientes"
     template_name = "../templates/general/home.html"
     
     def get_context_data(self, **kwargs):
@@ -24,10 +29,31 @@ class HomeView(TemplateView):
         return context
 
 
+#Home para empleados
+class HomeViewEmpleados(LoginRequiredMixin, RoleRequiredMixin, ListView):
+    role = "Empleados"
+    model = Order
+    template_name = "../templates/general/home_empleado.html"
+    context_object_name = "orders"
+    ordering = ["-fecha"]
+    
+
+class HomeRedirectView(View):
+    def get(self, request, *args, **kwargs):
+        # si no está autenticado
+        if not request.user.is_authenticated:
+            return redirect('login')
+        # usuarios administradores
+        if request.user.groups.filter(name__in=['Empleados']).exists():
+            return redirect('home-empleado')
+        # por defecto cliente
+        return redirect('home')
+
+
 class LoginView(FormView):
     template_name = "../templates/general/login.html"
     form_class = LoginForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("home-redirect")
 
     def form_valid(self, form):
         usuario = form.cleaned_data['username']
@@ -37,11 +63,11 @@ class LoginView(FormView):
         if user is not None:
             login(self.request, user)
             messages.add_message(self.request, messages.SUCCESS, "Has iniciado sesion correctamente")
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('home-redirect'))
         else:
             messages.add_message(self.request, messages.ERROR, "Usuario o contraseña incorrectos")
             return super(LoginView, self).form_valid(form)
-        
+
 
 class RegisterView(CreateView):
     model = User

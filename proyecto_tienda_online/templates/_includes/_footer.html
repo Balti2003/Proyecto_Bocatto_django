@@ -19,10 +19,12 @@
 
       <!-- Enlaces útiles -->
       <div class="col-md-4 mb-3 mb-md-0 text-center">
-        <h6 class="text-danger fw-bold mb-2">Enlaces</h6>
-        <a href="{% url 'home' %}" class="text-light text-decoration-none me-2">Inicio</a>
-        <a href="{% url 'product_list' %}" class="text-light text-decoration-none me-2">Productos</a>
-        <a href="{% url 'contact' %}" class="text-light text-decoration-none">Contacto</a>
+        {% if not es_empleado %}
+          <h6 class="text-danger fw-bold mb-2">Enlaces</h6>
+          <a href="{% url 'home' %}" class="text-light text-decoration-none me-2">Inicio</a>
+          <a href="{% url 'product_list' %}" class="text-light text-decoration-none me-2">Productos</a>
+          <a href="{% url 'contact' %}" class="text-light text-decoration-none">Contacto</a>
+        {% endif %}
       </div>
 
       <!-- Contacto y redes -->

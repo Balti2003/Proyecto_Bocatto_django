@@ -2,10 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from shop.views import HomeView, LoginView, RegisterView, LegalView, ContactView, ProfileView, logout_view
+from shop.views import HomeRedirectView, HomeView, HomeViewEmpleados, LoginView, RegisterView, LegalView, ContactView, ProfileView, logout_view
 
 urlpatterns = [
-    path("", HomeView.as_view(), name="home"),
+    path("redirect/", HomeRedirectView.as_view(), name="home-redirect"),
+    path("cliente/", HomeView.as_view(), name="home"),
+    path("empleado/", HomeViewEmpleados.as_view(), name="home-empleado"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", logout_view, name="logout"),
     path("register/", RegisterView.as_view(), name="register"),

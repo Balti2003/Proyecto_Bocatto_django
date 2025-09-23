@@ -288,11 +288,28 @@ class EmployeeDashboardView(UserPassesTestMixin, ListView):
         return user.is_authenticated and (user.groups.filter(name="Empleado").exists() or user.is_staff)
 
     def get_queryset(self):
-        return Order.objects.all().order_by("-fecha")
+        # Filtrar por estado si se pasa ?estado=<valor>
+        estado = self.request.GET.get('estado', 'all')
+        qs = Order.objects.all()
+        if estado in ['pendiente', 'enviado', 'cancelado']:
+            qs = qs.filter(estado=estado)
+        return qs.order_by("-fecha")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # estadísticas globales por estado
         context["total_pedidos"] = Order.objects.count()
         context["pedidos_enviados"] = Order.objects.filter(estado="enviado").count()
         context["pedidos_pendientes"] = Order.objects.filter(estado="pendiente").count()
+        context["pedidos_cancelados"] = Order.objects.filter(estado="cancelado").count()
+
+        # filtro activo
+        context['current_filter'] = self.request.GET.get('estado', 'all')
+
+        # calcular subtotales por item para cada pedido (para uso en la plantilla)
+        orders = context.get('orders', [])
+        for order in orders:
+            for item in order.items.all():
+                item.subtotal = float(item.cantidad) * float(item.precio_unitario)
+
         return context

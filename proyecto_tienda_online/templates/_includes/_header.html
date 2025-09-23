@@ -37,19 +37,26 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contact' %}">Contacto</a>
                         </li>
+                        {% if not request.user.groups.all.0.name == 'Empleado' and not request.user.is_staff %}
                         <li class="nav-item">
                             <a class="nav-link d-flex align-items-center" href="{% url 'carrito' %}">
                                 <span class="me-1">🛒</span>Carrito
                             </a>
                         </li>
+                        {% endif %}
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                👨🏻‍💼 {{ request.user.username }}
+                                <img src="{% static 'img/logoUser.png' %}" alt="Logo usuario" class="me-2">
+                                {{ request.user.username }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
                                 <li><a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a></li>
-                                <li><a class="dropdown-item" href="{% url 'order_list' %}">Mis pedidos</a></li>
+                                {% if request.user.groups.all.0.name == 'Empleado' or request.user.is_staff %}
+                                    <li><a class="dropdown-item text-primary fw-bold" href="{% url 'employee_dashboard' %}">Visualizar pedidos de clientes</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{% url 'order_list' %}">Mis pedidos</a></li>
+                                {% endif %}
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-danger fw-bold" href="{% url 'logout' %}">Cerrar sesión</a></li>
                             </ul>

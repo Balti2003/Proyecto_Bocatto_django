@@ -6,8 +6,8 @@
         <small class="text-muted">Vista de gestión de pedidos</small>
     </div>
 
-    <div class="row g-3 mb-4">
-        <div class="col-sm-4">
+        <div class="row g-3 mb-4">
+            <div class="col-sm-3">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h6 class="card-subtitle text-muted">Total de pedidos</h6>
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+            <div class="col-sm-3">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h6 class="card-subtitle text-muted">Pedidos entregados</h6>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+            <div class="col-sm-3">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h6 class="card-subtitle text-muted">Pedidos pendientes</h6>
@@ -41,11 +41,24 @@
                         <div>
                             <h3 class="mb-0">{{ pedidos_pendientes }}</h3>
                         </div>
-                        <i class="bi bi-hourglass-split display-6 text-secondary"></i>
+                                    <i class="bi bi-hourglass-split display-6 text-secondary"></i>
                     </div>
                 </div>
             </div>
         </div>
+                    <div class="col-sm-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6 class="card-subtitle text-muted">Pedidos cancelados</h6>
+                                <div class="d-flex align-items-end justify-content-between mt-2">
+                                    <div>
+                                        <h3 class="mb-0">{{ pedidos_cancelados }}</h3>
+                                    </div>
+                                    <i class="bi bi-x-circle display-6 text-danger"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
     </div>
 
     <div class="card mb-4 shadow-sm">

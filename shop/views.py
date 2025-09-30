@@ -256,7 +256,28 @@ class OrderDetailView(DetailView):
 
         context["items"] = items
         context["total"] = order.total
+        # indicar si el usuario puede actualizar el estado (empleado o staff)
+        user = self.request.user
+        context['can_change_status'] = user.is_authenticated and (user.groups.filter(name="Empleado").exists() or user.is_staff)
         return context
+
+    def post(self, request, *args, **kwargs):
+        # manejar actualización del estado desde el formulario del detalle
+        self.object = self.get_object()
+        user = request.user
+        if not (user.is_authenticated and (user.groups.filter(name="Empleado").exists() or user.is_staff)):
+            messages.error(request, "No tienes permiso para cambiar el estado del pedido.")
+            return redirect('order_detail', pk=self.object.id)
+
+        nuevo_estado = request.POST.get('estado')
+        if nuevo_estado not in dict(Order.ESTADOS).keys():
+            messages.error(request, "Estado inválido.")
+            return redirect('order_detail', pk=self.object.id)
+
+        self.object.estado = nuevo_estado
+        self.object.save()
+        messages.success(request, f"Estado del pedido #{self.object.id} actualizado a {self.object.get_estado_display()}.")
+        return redirect('order_detail', pk=self.object.id)
 
 
 @method_decorator(login_required, name='dispatch')

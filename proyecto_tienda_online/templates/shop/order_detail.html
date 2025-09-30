@@ -63,13 +63,31 @@
         </div>
     </div>
 
-    <div class="text-center">
-        {% if not request.user.groups.all.0.name == 'Empleado' and not request.user.is_staff %}
-        <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg rounded-pill">
-            Seguir comprando
-        </a>
-        {% endif %}
-    </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+                {% if not request.user.groups.all.0.name == 'Empleado' and not request.user.is_staff %}
+                <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg rounded-pill">
+                    Seguir comprando
+                </a>
+                {% endif %}
+            </div>
+
+            <div>
+                {% if can_change_status %}
+                <form method="post" class="d-inline-block">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <select name="estado" class="form-select form-select-sm">
+                            {% for code,label in order.ESTADOS %}
+                                <option value="{{ code }}" {% if order.estado == code %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-sm btn-outline-primary" type="submit">Actualizar estado</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
 </div>
 
 {% endblock %}

@@ -36,6 +36,30 @@ class HomeViewEmpleados(LoginRequiredMixin, RoleRequiredMixin, ListView):
     template_name = "../templates/general/home_empleado.html"
     context_object_name = "orders"
     ordering = ["-fecha"]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        estado = self.request.GET.get("estado", "all")
+
+        if estado != "all":
+            queryset = queryset.filter(estado=estado)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # filtro actual
+        estado = self.request.GET.get("estado", "all")
+        context["current_filter"] = estado
+
+        # contadores
+        context["total_pedidos"] = Order.objects.count()
+        context["pedidos_pendientes"] = Order.objects.filter(estado="pendiente").count()
+        context["pedidos_enviados"] = Order.objects.filter(estado="enviado").count()
+        context["pedidos_cancelados"] = Order.objects.filter(estado="cancelado").count()
+
+        return context
     
 
 class HomeRedirectView(View):

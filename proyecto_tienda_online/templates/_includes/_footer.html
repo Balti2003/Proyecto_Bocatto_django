@@ -11,10 +11,19 @@
       <!-- Información del sitio -->
       <div class="col-md-4 mb-3 mb-md-0 text-center text-md-start">
         <!-- Logo con imagen -->
-        <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home' %}">
-          <img src="{% static 'img/logo3.png' %}" alt="Bocatto Logo" 
-            class="me-2" style="height: 70px; width: auto;">
+        {% if not es_empleado and request.user.is_authenticated %}
+          <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home' %}">
+            <img src="{% static 'img/logo3.png' %}" alt="Bocatto Logo" 
+              class="me-2" style="height: 70px; width: auto;">
           </a>
+        {% endif %}
+
+        {% if es_empleado and request.user.is_authenticated %}
+          <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home-empleado' %}">
+            <img src="{% static 'img/logo3.png' %}" alt="Bocatto Logo" 
+              class="me-2" style="height: 70px; width: auto;">
+          </a>
+        {% endif %}
       </div>
 
       <!-- Enlaces útiles -->

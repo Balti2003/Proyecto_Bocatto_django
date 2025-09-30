@@ -60,11 +60,21 @@
         </div>
     </div>
 
-    <div class="text-center">
-        <a href="{% url 'product_list' %}" class="btn btn-danger btn-lg rounded-pill">
-            Seguir comprando
-        </a>
-    </div>
+    {% if not es_empleado %}
+        <div class="text-center">
+            <a href="{% url 'product_list' %}" class="btn btn-danger btn-lg rounded-pill">
+                Seguir comprando
+            </a>
+        </div>
+    {% endif %}
+
+    {% if es_empleado %}
+        <div class="text-center">
+            <a href="{% url 'home-empleado' %}" class="btn btn-danger btn-lg rounded-pill">
+                Volver
+            </a>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}

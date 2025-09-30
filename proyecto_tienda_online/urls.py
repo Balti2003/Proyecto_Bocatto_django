@@ -5,7 +5,7 @@ from django.conf import settings
 from shop.views import HomeRedirectView, HomeView, HomeViewEmpleados, LoginView, RegisterView, LegalView, ContactView, ProfileView, logout_view
 
 urlpatterns = [
-    path("redirect/", HomeRedirectView.as_view(), name="home-redirect"),
+    path("", HomeRedirectView.as_view(), name="home-redirect"),
     path("cliente/", HomeView.as_view(), name="home"),
     path("empleado/", HomeViewEmpleados.as_view(), name="home-empleado"),
     path("login/", LoginView.as_view(), name="login"),

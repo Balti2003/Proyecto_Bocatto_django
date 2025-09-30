@@ -45,3 +45,7 @@ class OrderItem(models.Model): #Esta tabla une prodcutos con el pedido de un usu
 
     def __str__(self):
         return f"{self.cantidad} x {self.producto.nombre}"
+    
+    @property
+    def subtotal(self):
+        return self.cantidad * self.precio_unitario

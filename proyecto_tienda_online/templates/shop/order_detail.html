@@ -25,9 +25,9 @@
                 <div class="col-md-4">
                     <p><strong>Estado:</strong>
                         <span class="badge 
-                            {% if order.estado == 'pendiente' %}bg-warning
-                            {% elif order.estado == 'pagado' %}bg-success
-                            {% else %}bg-secondary{% endif %}">
+                            {% if order.estado == 'pendiente' %}bg-secondary
+                            {% elif order.estado == 'enviado' %}bg-success
+                            {% else %}bg-danger{% endif %}">
                             {{ order.estado|title }}
                         </span>
                     </p>
@@ -54,9 +54,26 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <h4 class="text-end mt-3">Total: <span class="fw-bold">${{ order.total|floatformat:2 }}</span></h4>
             </div>
 
-            <h4 class="text-end mt-3">Total: <span class="fw-bold">${{ order.total|floatformat:2 }}</span></h4>
+            {% if es_empleado and can_change_status %}
+                <div class="d-flex justify-content-end mt-3">
+                    <form method="post" class="d-flex align-items-center gap-2">
+                        {% csrf_token %}
+                        <select name="estado" id="estado" class="form-select form-select-sm w-auto">
+                            {% for code,label in order.ESTADOS %}
+                                <option value="{{ code }}" {% if order.estado == code %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-sm btn-outline-danger" type="submit">
+                            Actualizar estado
+                        </button>
+                    </form>
+                </div>
+            {% endif %}
         </div>
     </div>
 

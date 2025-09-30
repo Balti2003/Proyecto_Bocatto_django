@@ -312,13 +312,31 @@ class OrderDetailView(DetailView):
         order = self.get_object()
         items = order.items.all()
 
-        # Agregar subtotales por cada item
-        for item in items:
-            item.subtotal = item.cantidad * item.precio_unitario
-
+        # Pasamos la flag para mostrar el form solo a empleados
         context["items"] = items
         context["total"] = order.total
+        context["can_change_status"] = self.request.user.groups.filter(name="Empleados").exists()
         return context
+
+    def post(self, request, *args, **kwargs):
+        order = self.get_object()
+
+        # Solo empleados pueden cambiar el estado
+        if not request.user.groups.filter(name="Empleados").exists():
+            messages.error(request, "No tenés permisos para cambiar el estado del pedido.")
+            return redirect("order_detail", pk=order.pk)
+
+        # Capturar nuevo estado desde el formulario
+        nuevo_estado = request.POST.get("estado")
+
+        if nuevo_estado in dict(order.ESTADOS).keys():
+            order.estado = nuevo_estado
+            order.save()
+            messages.success(request, f"El estado del pedido #{order.id} se actualizó a {order.get_estado_display()}.")
+        else:
+            messages.error(request, "Estado inválido.")
+
+        return redirect("order_detail", pk=order.pk)
 
 
 @method_decorator(login_required, name='dispatch')

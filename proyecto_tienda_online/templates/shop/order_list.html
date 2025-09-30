@@ -24,9 +24,9 @@
                     <p class="card-text mb-1"><strong>Total:</strong> ${{ order.total|floatformat:2 }}</p>
                     <p class="card-text mb-3">
                         <span class="badge 
-                            {% if order.estado == 'pendiente' %}bg-warning
-                            {% elif order.estado == 'pagado' %}bg-success
-                            {% else %}bg-secondary{% endif %}">
+                            {% if order.estado == 'pendiente' %}bg-secondary
+                            {% elif order.estado == 'enviado' %}bg-success
+                            {% else %}bg-danger{% endif %}">
                             {{ order.estado|title }}
                         </span>
                     </p>

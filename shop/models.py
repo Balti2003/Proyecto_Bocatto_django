@@ -24,7 +24,7 @@ class Product(models.Model): # Producto que se vende
 class Order(models.Model): # Orden de compra hecha por un usuario
     ESTADOS = [
         ('pendiente', 'Pendiente'),
-        ('enviado', 'Enviado'),
+        ('enviado', 'Entregado'),
         ('cancelado', 'Cancelado'),
     ]
 
@@ -32,6 +32,19 @@ class Order(models.Model): # Orden de compra hecha por un usuario
     fecha = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    # Método de pago
+    PAYMENT_METHODS = [
+        ('efectivo', 'Efectivo'),
+        ('mercadopago', 'MercadoPago'),
+    ]
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS, default='efectivo')
+
+    # Tipo de entrega
+    DELIVERY_TYPES = [
+        ('local', 'Retira en local'),
+        ('delivery', 'Delivery'),
+    ]
+    delivery_type = models.CharField(max_length=20, choices=DELIVERY_TYPES, default='local')
 
     def __str__(self):
         return f"Pedido #{self.id} - {self.usuario}"

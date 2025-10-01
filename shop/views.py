@@ -200,9 +200,15 @@ class CheckoutView(LoginRequiredMixin, View):
             item["subtotal"] = item["precio"] * item["cantidad"]
             total += item["subtotal"]
 
+        # pasar opciones de pago y entrega al template
+        payment_choices = Order.PAYMENT_METHODS
+        delivery_choices = Order.DELIVERY_TYPES
+
         return render(request, self.template_name, {
             "carrito": carrito,
-            "total": total
+            "total": total,
+            "payment_methods": payment_choices,
+            "delivery_types": delivery_choices,
         })
 
     def post(self, request, *args, **kwargs):
@@ -213,12 +219,30 @@ class CheckoutView(LoginRequiredMixin, View):
 
         total = sum(item["precio"] * item["cantidad"] for item in carrito.values())
 
-        # Crear el pedido
+        # recoger selección de método de pago y tipo de entrega
+        selected_payment = request.POST.get('payment_method')
+        selected_delivery = request.POST.get('delivery_type')
+
+        # Validar que los valores estén entre las opciones permitidas
+        valid_payments = [p[0] for p in Order.PAYMENT_METHODS]
+        valid_deliveries = [d[0] for d in Order.DELIVERY_TYPES]
+
+        if selected_payment not in valid_payments:
+            messages.error(request, "Método de pago inválido.")
+            return redirect("checkout")
+
+        if selected_delivery not in valid_deliveries:
+            messages.error(request, "Tipo de entrega inválido.")
+            return redirect("checkout")
+
+        # Crear el pedido con método de pago y tipo de entrega
         order = Order.objects.create(
             usuario=request.user,
             fecha=timezone.now(),
             total=total,
-            estado="pendiente"
+            estado="pendiente",
+            payment_method=selected_payment,
+            delivery_type=selected_delivery,
         )
 
         # Crear los items asociados al pedido

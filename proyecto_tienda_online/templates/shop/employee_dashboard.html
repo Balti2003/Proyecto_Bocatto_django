@@ -88,6 +88,7 @@
                             <th scope="col">Estado</th>
                             <th scope="col">Total</th>
                             <th scope="col">Productos</th>
+                            <th scope="col">Pago / Entrega</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -114,10 +115,14 @@
                                     {% for item in order.items.all %}
                                         <li class="mb-1">
                                             <strong>{{ item.producto.nombre }}</strong>
-                                            <div class="small text-muted">Cantidad: {{ item.cantidad }} • Precio unit.: ${{ item.precio_unitario }} • Subtotal: ${{ item.subtotal }}</div>
+                                            <div class="small text-muted">Cantidad: {{ item.cantidad }} • Precio unit.: ${{ item.precio_unitario }} • Subtotal: ${{ item.subtotal|floatformat:2 }}</div>
                                         </li>
                                     {% endfor %}
                                 </ul>
+                            </td>
+                            <td>
+                                <div class="small text-muted">Pago: {{ order.get_payment_method_display }}</div>
+                                <div class="small text-muted">Entrega: {{ order.get_delivery_type_display }}</div>
                             </td>
                             <td>
                                 <a href="{% url 'order_detail' order.id %}" class="btn btn-sm btn-outline-primary">Ver</a>

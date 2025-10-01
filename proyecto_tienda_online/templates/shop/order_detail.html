@@ -37,6 +37,15 @@
                 </div>
             </div>
 
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <p><strong>Método de pago:</strong> {{ order.get_payment_method_display }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Tipo de entrega:</strong> {{ order.get_delivery_type_display }}</p>
+                </div>
+            </div>
+
             <h5 class="fw-bold mb-3">Productos:</h5>
             <div class="table-responsive">
                 <table class="table table-hover align-middle text-center">

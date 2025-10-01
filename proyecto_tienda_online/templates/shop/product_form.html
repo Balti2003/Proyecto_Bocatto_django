@@ -1,0 +1,50 @@
+{% extends "general/layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="{% static '/css/register.css' %}">
+{% endblock %}
+
+{% block head_title %}Nuevo Producto | Bocatto{% endblock %}
+
+{% block page_content %}
+<div class="container my-5">
+    {% include '_includes/_messages.html' %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-6">
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-header bg-danger text-white text-center">
+                    <h2 class="mb-0">Crear nuevo producto</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            {{ form.nombre|as_crispy_field }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.descripcion|as_crispy_field }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.precio|as_crispy_field }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.categoria|as_crispy_field }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.imagen|as_crispy_field }}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-danger">Guardar producto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

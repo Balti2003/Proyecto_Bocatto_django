@@ -50,7 +50,7 @@
                             </a>
                         </li>
                     {% endif %}
-                    
+
                     {% if request.user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,6 +64,12 @@
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a></li>
                                 <li><hr class="dropdown-divider"></li>
+                                {% if es_empleado %}
+                                    <li><a class="dropdown-item" href="{% url 'home-empleado' %}">Home</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'product-create' %}">Subir productos</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% endif %}
                                 <li><a class="dropdown-item text-danger fw-bold" href="{% url 'logout' %}">Cerrar sesión</a></li>
                             </ul>
                         </li>

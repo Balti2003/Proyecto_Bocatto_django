@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 
 from shop.mixins import RoleRequiredMixin
-from .forms import LoginForm, RegistrationForm, ContactForm
+from .forms import LoginForm, ProductForm, RegistrationForm, ContactForm
 from django.contrib.auth.decorators import login_required
 from .models import Category, Product, Order, OrderItem
 from django.utils.decorators import method_decorator
@@ -190,6 +190,14 @@ class ProductDetailView(DetailView):
         ).exclude(id=producto.id)[:4]
         return context
     
+
+class ProductCreateView(LoginRequiredMixin, RoleRequiredMixin, CreateView):
+    role = "Empleados"
+    model = Product
+    form_class = ProductForm
+    template_name = "../templates/shop/product_form.html"
+    success_url = reverse_lazy("home-empleado")
+
 
 #Vistas de carrito
 @method_decorator(login_required, name='dispatch')

@@ -28,11 +28,23 @@ class Order(models.Model): # Orden de compra hecha por un usuario
         ('cancelado', 'Cancelado'),
     ]
 
+    METODOS_PAGO = [
+        ("efectivo", "Efectivo"),
+        ("transferencia", "Transferencia"),
+    ]
+
+    METODOS_ENTREGA = [
+        ("retiro", "Retiro en el local"),
+        ("delivery", "Delivery"),
+    ]
+
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='pedidos')
     fecha = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
+    metodo_pago = models.CharField(max_length=20, choices=METODOS_PAGO, default="efectivo")
+    metodo_entrega = models.CharField(max_length=20, choices=METODOS_ENTREGA, default="retiro")
+    
     def __str__(self):
         return f"Pedido #{self.id} - {self.usuario}"
 

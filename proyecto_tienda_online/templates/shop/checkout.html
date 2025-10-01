@@ -16,6 +16,7 @@
     {% if carrito %}
     <div class="row justify-content-center">
         <div class="col-lg-8">
+            <!-- Resumen del pedido -->
             <div class="card shadow-lg rounded-4 border-0 mb-4">
                 <div class="card-body">
                     <h5 class="fw-bold mb-3">Resumen del pedido</h5>
@@ -50,8 +51,29 @@
                 </div>
             </div>
 
-            <form method="post" action="{% url 'checkout' %}" class="d-grid gap-2">
+            <!-- Formulario de checkout -->
+            <form method="post" action="{% url 'checkout' %}" class="d-grid gap-3">
                 {% csrf_token %}
+
+                <!-- Método de pago -->
+                <div class="mb-3">
+                    <label for="metodo_pago" class="form-label fw-bold">Método de pago:</label>
+                    <select id="metodo_pago" name="metodo_pago" class="form-select">
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+
+                <!-- Método de entrega -->
+                <div class="mb-3">
+                    <label for="metodo_entrega" class="form-label fw-bold">Método de entrega:</label>
+                    <select id="metodo_entrega" name="metodo_entrega" class="form-select">
+                        <option value="retiro">Retiro en tienda</option>
+                        <option value="envio">Envío a domicilio</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-success btn-lg rounded-pill">
                     Confirmar compra
                 </button>
@@ -62,5 +84,4 @@
         <p class="text-center">No hay productos en el carrito.</p>
     {% endif %}
 </div>
-
 {% endblock %}

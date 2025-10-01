@@ -57,7 +57,7 @@
                 <h4>Total: <span class="fw-bold">${{ total|floatformat:2 }}</span></h4>
                 <form method="post" action="{% url 'checkout' %}" class="d-grid gap-2 mt-2">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-success btn-lg rounded-pill">
+                    <button type="submit" class="btn btn-danger btn-lg rounded-pill">
                         Finalizar compra
                     </button>
                 </form>
@@ -65,7 +65,10 @@
         </div>
     </div>
     {% else %}
-        <p class="text-center fw-semibold">Tu carrito está vacío.</p>
+        <div class="text-center">
+            <p class="text-center fw-semibold">Tu carrito esta vacío.</p>
+            <a href="{% url 'product_list' %}" class="btn btn-danger btn-lg rounded-pill mt-3">Volver a los productos</a>
+        </div>
     {% endif %}
 </div>
 

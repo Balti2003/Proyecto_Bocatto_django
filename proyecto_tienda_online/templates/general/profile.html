@@ -20,17 +20,19 @@
                     <h2 class="fw-bold text-center text-danger mb-4">Mi Perfil</h2>
 
                     <div class="mb-4">
-                        <p><strong>Usuario:</strong> {{ request.user.username }}</p>
-                        <p><strong>Email:</strong> {{ request.user.email }}</p>
-                        <p><strong>Nombre:</strong> {{ request.user.first_name }}</p>
-                        <p><strong>Apellido:</strong> {{ request.user.last_name }}</p>
-                        <p><strong>Fecha de registro:</strong> {{ request.user.date_joined|date:"d/m/Y" }}</p>
+                        <p><strong>Usuario:</strong> {{ request.user.username|default:"-" }}</p>
+                        <p><strong>Email:</strong> {{ request.user.email|default:"-" }}</p>
+                        <p><strong>Nombre:</strong> {{ request.user.first_name|default:"-" }}</p>
+                        <p><strong>Apellido:</strong> {{ request.user.last_name|default:"-" }}</p>
+                        <p><strong>Fecha de registro:</strong> {{ request.user.date_joined|date:"d/m/Y"|default:"-" }}</p>
                     </div>
 
                     <div class="d-flex flex-wrap gap-3 justify-content-center">
-                        <a href="{% url 'order_list' %}" class="btn btn-outline-danger fw-bold">
-                            Mis pedidos
-                        </a>
+                        {% if not es_empleado %}
+                            <a href="{% url 'order_list' %}" class="btn btn-outline-danger fw-bold">
+                                Mis pedidos
+                            </a>
+                        {% endif %}
                         <a href="{% url 'password_change' %}" class="btn btn-outline-dark fw-bold">
                             Cambiar contraseña
                         </a>

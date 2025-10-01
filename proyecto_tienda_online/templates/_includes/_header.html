@@ -7,13 +7,13 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-            {% if not es_empleado and request.user.is_authenticated %}
+            {% if not es_empleado %}
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home' %}">
                     <img src="{% static 'img/logo3.png' %}" alt="Bocatto Logo" class="me-2">
                 </a>
             {% endif %}
 
-            {% if es_empleado and request.user.is_authenticated %}
+            {% if es_empleado %}
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home-empleado' %}">
                     <img src="{% static 'img/logo3.png' %}" alt="Bocatto Logo" class="me-2">
                 </a>
@@ -25,12 +25,6 @@
 
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    {% if not es_empleado and request.user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Inicio</a>
-                        </li>
-                    {% endif %}
-
                     {% if not request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -41,6 +35,9 @@
                     {% endif %}
 
                     {% if not es_empleado and request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'product_list' %}">Productos</a>
                         </li>
@@ -58,13 +55,14 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{% static "img/logo_user.png" %}" alt="Logo usuario" class="me-2" id="logo-user">
-                                {{ request.user.username }}
+                                
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
                                 {% if not es_empleado %}
-                                    <li><a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a></li>
                                     <li><a class="dropdown-item" href="{% url 'order_list' %}">Mis pedidos</a></li>
                                 {% endif %}
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-danger fw-bold" href="{% url 'logout' %}">Cerrar sesión</a></li>
                             </ul>

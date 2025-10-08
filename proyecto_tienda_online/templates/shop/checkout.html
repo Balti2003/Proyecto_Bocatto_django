@@ -59,8 +59,9 @@
                 <div class="mb-3">
                     <label for="metodo_pago" class="form-label fw-bold">Método de pago:</label>
                     <select id="metodo_pago" name="metodo_pago" class="form-select">
+                        <option value="" selected disabled>Selecciona un método</option>
                         <option value="efectivo">Efectivo</option>
-                        <option value="tarjeta">Transferencia</option>
+                        <option value="transferencia">Transferencia</option>
                     </select>
                 </div>
 
@@ -68,13 +69,14 @@
                 <div class="mb-3">
                     <label for="metodo_entrega" class="form-label fw-bold">Método de entrega:</label>
                     <select id="metodo_entrega" name="metodo_entrega" class="form-select">
+                        <option value="" selected disabled>Selecciona una opción</option>
                         <option value="retiro">Retiro en local</option>
-                        <option value="envio">Envío a domicilio</option>
+                        <option value="delivery">Delivery</option>
                     </select>
                 </div>
 
                 <button type="submit" class="btn btn-danger btn-lg rounded-pill">
-                    Confirmar compra
+                    Confirmar pedido
                 </button>
             </form>
         </div>

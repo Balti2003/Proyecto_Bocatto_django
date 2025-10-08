@@ -284,8 +284,12 @@ class CheckoutView(LoginRequiredMixin, View):
         total = sum(item["precio"] * item["cantidad"] for item in carrito.values())
 
         # Capturar los valores seleccionados del checkout
-        metodo_pago = request.POST.get("metodo_pago", "efectivo")
-        metodo_entrega = request.POST.get("metodo_entrega", "retiro")
+        metodo_pago = request.POST.get("metodo_pago")
+        metodo_entrega = request.POST.get("metodo_entrega")
+
+        if not metodo_pago or not metodo_entrega:
+            messages.error(request, "Debes seleccionar método de pago y de entrega.")
+            return redirect("checkout")
 
         # Crear el pedido
         order = Order.objects.create(

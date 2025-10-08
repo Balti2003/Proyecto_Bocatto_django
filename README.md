@@ -97,7 +97,7 @@ Permite a los clientes registrarse, navegar productos del menú, agregarlos al c
 
 **Lomello Baltasar** – [baltasarlomello@live.com](mailto:baltasarlomello@live.com)
 **Dalmasso Elias** – [dalmassoelias.04@gmail.com](mailto:dalmassoelias.04@gmail.com)  
-**Lomello Baltasar** – [fumero.ignacio@gmail.com](mailto:fumero.ignacio@gmail.com)  
+**Fumero Ignacio** – [fumero.ignacio@gmail.com](mailto:fumero.ignacio@gmail.com)  
 
 Sígueme en [GitHub](https://github.com/Balti2003)  
 

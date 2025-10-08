@@ -55,12 +55,11 @@
 
             <div class="text-end mt-4">
                 <h4>Total: <span class="fw-bold">${{ total|floatformat:2 }}</span></h4>
-                <form method="post" action="{% url 'checkout' %}" class="d-grid gap-2 mt-2">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-lg rounded-pill">
+                <div class="d-grid gap-2 mt-2">
+                    <a href="{% url 'checkout' %}" class="btn btn-danger btn-lg rounded-pill">
                         Finalizar compra
-                    </button>
-                </form>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

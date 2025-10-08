@@ -32,6 +32,12 @@
                         </span>
                     </p>
                 </div>
+                <div class="col-md-4">
+                    <p><strong>Método de pago:</strong> {{ order.get_metodo_pago_display }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Método de entrega:</strong> {{ order.get_metodo_entrega_display }}</p>
+                </div>
             </div>
 
             <h5 class="fw-bold mb-3">Productos:</h5>
@@ -39,17 +45,29 @@
                 <table class="table table-hover align-middle text-center">
                     <thead class="table-light">
                         <tr>
+                            <th></th>
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio unitario</th>
+                            <th>Subtotal</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for item in order.items.all %}
                         <tr>
-                            <td>{{ item.producto.nombre }}</td>
+                            <td>
+                                {% if item.producto.imagen %}
+                                    <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" 
+                                        class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                                {% else %}
+                                    <img src="{% static 'img/producto-placeholder.jpg' %}" alt="Sin imagen" 
+                                        class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                                {% endif %}
+                            </td>
+                            <td class="fw-semibold text-start">{{ item.producto.nombre }}</td>
                             <td>{{ item.cantidad }}</td>
                             <td>${{ item.precio_unitario|floatformat:2 }}</td>
+                            <td>${{ item.subtotal|floatformat:2 }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

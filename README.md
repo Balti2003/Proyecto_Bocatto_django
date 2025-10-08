@@ -7,9 +7,7 @@
 ## 📌 Descripción  
 
 **Bocatto** es un sistema de **pedidos online para comidas rápidas** desarrollado con **Django**.  
-Permite a los clientes registrarse, navegar productos del menú, agregarlos al carrito, generar pedidos y elegir tipo de entrega (*retiro en local o delivery*).  
-
-> ⚠️ El sistema gestiona pedidos y pagos, pero la **administración del lado del negocio no está incluida**, ya que se centra en la experiencia del cliente.  
+Permite a los clientes registrarse, navegar productos del menú, agregarlos al carrito, generar pedidos y elegir tipo de entrega (*retiro en local o delivery*) y forma de pago.  
 
 ---
 
@@ -22,7 +20,7 @@ Permite a los clientes registrarse, navegar productos del menú, agregarlos al c
   - Modificar cantidad.  
   - Eliminar productos.  
 - Generación de pedidos a partir del carrito.  
-- Selección de **tipo de entrega**: retiro en mostrador o delivery.  
+- Selección de **tipo de entrega**: retiro en local o delivery.  
 - Gestión de medios de pago asociados.  
 - Realización y registro de transacciones.  
 - Historial de pedidos realizados, con detalle de productos, subtotales y estado del pedido.  
@@ -77,7 +75,7 @@ Permite a los clientes registrarse, navegar productos del menú, agregarlos al c
 1. Registrarse o iniciar sesión.  
 2. Explorar el menú de productos.  
 3. Agregar productos al carrito.  
-4. Seleccionar el tipo de entrega (*local o delivery*).  
+4. Seleccionar el tipo de entrega (*retiro en local o delivery*).  
 5. Elegir medio de pago y confirmar la compra.  
 6. Consultar estado del pedido en tiempo real.  
 7. Revisar el historial de pedidos.  
@@ -96,8 +94,8 @@ Permite a los clientes registrarse, navegar productos del menú, agregarlos al c
 ## 👨‍💻 Autores
 
 **Lomello Baltasar** – [baltasarlomello@live.com](mailto:baltasarlomello@live.com)
+**Fumero Ignacio** – [fumero.ignacio@gmail.com](mailto:fumero.ignacio@gmail.com)
 **Dalmasso Elias** – [dalmassoelias.04@gmail.com](mailto:dalmassoelias.04@gmail.com)  
-**Fumero Ignacio** – [fumero.ignacio@gmail.com](mailto:fumero.ignacio@gmail.com)  
 
 Sígueme en [GitHub](https://github.com/Balti2003)  
 

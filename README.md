@@ -39,9 +39,7 @@ El sistema cuenta con una interfaz administrativa donde los empleados pueden:
 - Registrar el pago del pedido si se recibe en efectivo.
 - Consultar detalles completos del pedido (cliente, productos, forma de entrega, método de pago, etc.).
 - Gestionar el menú de productos:
-    - Agregar nuevos productos.
-    - Modificar precios, descripciones o imágenes.
-    - Eliminar productos que ya no estén disponibles.
+    - El administrador puede agregar nuevos productos.
 
 Esto permite un flujo de trabajo eficiente entre el cliente y el personal del local, garantizando una correcta gestión de pedidos y entregas.
 

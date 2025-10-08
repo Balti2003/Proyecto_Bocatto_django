@@ -55,7 +55,10 @@
 
             <div class="text-end mt-4">
                 <h4>Total: <span class="fw-bold">${{ total|floatformat:2 }}</span></h4>
-                <div class="d-grid gap-2 mt-2">
+                <div class="d-flex gap-2 mt-2 justify-content-center">
+                    <a href="{% url 'product_list' %}" class="btn btn-danger btn-lg rounded-pill">
+                        Seguir comprando
+                    </a>
                     <a href="{% url 'checkout' %}" class="btn btn-danger btn-lg rounded-pill">
                         Finalizar compra
                     </a>

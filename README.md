@@ -93,9 +93,9 @@ Permite a los clientes registrarse, navegar productos del menú, agregarlos al c
 
 ## 👨‍💻 Autores
 
-**Lomello Baltasar** – [baltasarlomello@live.com](mailto:baltasarlomello@live.com)
-**Fumero Ignacio** – [fumero.ignacio@gmail.com](mailto:fumero.ignacio@gmail.com)
-**Dalmasso Elias** – [dalmassoelias.04@gmail.com](mailto:dalmassoelias.04@gmail.com)  
+- **Lomello Baltasar** – [baltasarlomello@live.com](mailto:baltasarlomello@live.com)
+- **Fumero Ignacio** – [fumero.ignacio@gmail.com](mailto:fumero.ignacio@gmail.com)
+- **Dalmasso Elias** – [dalmassoelias.04@gmail.com](mailto:dalmassoelias.04@gmail.com)  
 
 Sígueme en [GitHub](https://github.com/Balti2003)  
 

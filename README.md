@@ -8,11 +8,12 @@
 
 **Bocatto** es un sistema de **pedidos online para comidas rápidas** desarrollado con **Django**.  
 Permite a los clientes registrarse, navegar productos del menú, agregarlos al carrito, generar pedidos y elegir tipo de entrega (*retiro en local o delivery*) y forma de pago.  
+El sistema también incluye una interfaz para empleados/administradores, quienes pueden gestionar los pedidos, actualizar estados y administrar los productos disponibles.
 
 ---
 
-## ✨ Funcionalidades  
-
+## ✨ Funcionalidades
+### 🧑‍🍳 Cliente
 - Registro y autenticación de usuarios (login/logout).  
 - Exploración de productos del menú.  
 - Gestión de carrito de compras:  
@@ -20,12 +21,29 @@ Permite a los clientes registrarse, navegar productos del menú, agregarlos al c
   - Modificar cantidad.  
   - Eliminar productos.  
 - Generación de pedidos a partir del carrito.  
-- Selección de **tipo de entrega**: retiro en local o delivery.  
-- Gestión de medios de pago asociados.  
-- Realización y registro de transacciones.  
-- Historial de pedidos realizados, con detalle de productos, subtotales y estado del pedido.  
-- Estados de pedido gestionados automáticamente (*pendiente de pago, pagado, en preparación, listo, en camino, entregado o cancelado*).  
+- Selección de **tipo de entrega**: retiro en local o delivery.
+- Selección de **tipo de entrega**: efectivo o transferencia.  
+- Visualizacion del estado del pedido.
+- Historial de pedidos con detalle de productos, subtotales y estado.
 - Interfaz responsive con **Bootstrap 5**.    
+
+---
+
+### 🧾 Empleado / Administrador
+
+El sistema cuenta con una interfaz administrativa donde los empleados pueden:
+
+- Visualizar todos los pedidos generados por los clientes.
+- Filtrar pedidos por estado.
+- Actualizar el estado de cada pedido conforme avanza el proceso.
+- Registrar el pago del pedido si se recibe en efectivo.
+- Consultar detalles completos del pedido (cliente, productos, forma de entrega, método de pago, etc.).
+- Gestionar el menú de productos:
+    - Agregar nuevos productos.
+    - Modificar precios, descripciones o imágenes.
+    - Eliminar productos que ya no estén disponibles.
+
+Esto permite un flujo de trabajo eficiente entre el cliente y el personal del local, garantizando una correcta gestión de pedidos y entregas.
 
 ---
 
@@ -77,8 +95,9 @@ Permite a los clientes registrarse, navegar productos del menú, agregarlos al c
 3. Agregar productos al carrito.  
 4. Seleccionar el tipo de entrega (*retiro en local o delivery*).  
 5. Elegir medio de pago y confirmar la compra.  
-6. Consultar estado del pedido en tiempo real.  
-7. Revisar el historial de pedidos.  
+6. Consultar estado del pedido. 
+7. Revisar el historial de pedidos. 
+8. Los empleados pueden gestionar los pedidos desde el panel administrativo. 
 
 ---
 

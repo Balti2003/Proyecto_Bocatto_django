@@ -234,6 +234,7 @@ class AddToCartView(View):
         else:
             carrito[str(producto.id)] = {
                 "nombre": producto.nombre,
+                'categoria': producto.categoria.nombre,
                 "precio": float(producto.precio),
                 "cantidad": cantidad,
                 "imagen": producto.imagen.url if producto.imagen else None

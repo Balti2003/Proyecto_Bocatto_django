@@ -24,10 +24,15 @@
                     <p class="card-text mb-1"><strong>Total:</strong> ${{ order.total|floatformat:2 }}</p>
                     <p class="card-text mb-3">
                         <span class="badge 
-                            {% if order.estado == 'pendiente' %}bg-secondary
+                            {% if order.estado == 'pendiente_pago' %}bg-secondary
+                            {% elif order.estado == 'pagado' %}bg-info
+                            {% elif order.estado == 'en_preparacion' %}bg-warning
+                            {% elif order.estado == 'listo' %}bg-primary
+                            {% elif order.estado == 'en_camino' %}bg-success
                             {% elif order.estado == 'enviado' %}bg-success
-                            {% else %}bg-danger{% endif %}">
-                            {{ order.estado|title }}
+                            {% elif order.estado == 'cancelado' %}bg-danger
+                            {% endif %}">
+                            {{ order.get_estado_display }}
                         </span>
                     </p>
                     <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-danger mt-auto rounded-pill">

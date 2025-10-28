@@ -305,7 +305,6 @@ class CheckoutView(LoginRequiredMixin, View):
             usuario=request.user,
             fecha=timezone.now(),
             total=total,
-            estado="pendiente",
             metodo_pago=metodo_pago,
             metodo_entrega=metodo_entrega,
         )

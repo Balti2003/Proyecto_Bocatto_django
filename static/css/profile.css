@@ -1,0 +1,78 @@
+    .profile-card {
+        background: linear-gradient(135deg, #fff 0%, #ffeaea 100%);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .profile-card:hover {
+        transform: scale(1.01);
+    }
+
+    .profile-header {
+        background: linear-gradient(135deg, #ff6b6b, #c0392b);
+        color: white;
+        padding: 2rem 1rem;
+        text-align: center;
+    }
+
+    .profile-header i {
+        font-size: 3rem;
+    }
+
+    .profile-header h2 {
+        font-weight: 700;
+        margin-top: 0.5rem;
+    }
+
+    .profile-body {
+        padding: 2rem;
+    }
+
+    .profile-info p {
+        font-size: 1.05rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .profile-info i {
+        color: #c0392b;
+    }
+
+    .btn-custom {
+        border-radius: 50px;
+        padding: 0.6rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-custom:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-danger {
+        background-color: #c0392b;
+        border: none;
+    }
+
+    .btn-outline-danger {
+        border-color: #c0392b;
+        color: #c0392b;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: #c0392b;
+        color: white;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }

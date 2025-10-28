@@ -51,14 +51,22 @@ class HomeViewEmpleados(LoginRequiredMixin, RoleRequiredMixin, ListView):
 
         # filtro actual
         estado = self.request.GET.get("estado", "all")
+        if estado != "all":
+            orders = Order.objects.filter(estado=estado)
+        else:
+            orders = Order.objects.all()
         context["current_filter"] = estado
 
         # contadores
         context["total_pedidos"] = Order.objects.count()
-        context["pedidos_pendientes"] = Order.objects.filter(estado="pendiente").count()
-        context["pedidos_enviados"] = Order.objects.filter(estado="enviado").count()
+        context["pedidos_pendientes_pago"] = Order.objects.filter(estado="pendiente_pago").count()
+        context["pedidos_pagados"] = Order.objects.filter(estado="pagado").count()
+        context["pedidos_preparacion"] = Order.objects.filter(estado="en_preparacion").count()
+        context["pedidos_listo"] = Order.objects.filter(estado="listo").count()
+        context["pedidos_en_camino"] = Order.objects.filter(estado="en_camino").count()
+        context["pedidos_enviados"] = Order.objects.filter(estado__in=["enviado", "en_camino"]).count()
         context["pedidos_cancelados"] = Order.objects.filter(estado="cancelado").count()
-
+        
         return context
     
 

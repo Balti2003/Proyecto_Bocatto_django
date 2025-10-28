@@ -5,63 +5,115 @@
 <link rel="stylesheet" href="{% static '/css/home_empleado.css' %}">
 {% endblock %}
 
-{% block head_title %}Pedidos relizados{% endblock %}
+{% block head_title %}Gestión de pedidos{% endblock %}
 
 {% block page_content %}
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="h4 mb-0">Panel de Empleado</h2>
-        <small class="text-muted">Vista de gestión de pedidos</small>
+        <small class="text-muted">Gestión y seguimiento de pedidos</small>
     </div>
 
+    <!-- === ESTADÍSTICAS SUPERIORES === -->
     <div class="row g-3 mb-4">
+        <!-- Total -->
         <div class="col-sm-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0">
                 <div class="card-body">
                     <h6 class="card-subtitle text-muted">Total de pedidos</h6>
-                    <div class="d-flex align-items-end justify-content-between mt-2">
-                        <div>
-                            <h3 class="mb-0">{{ total_pedidos }}</h3>
-                        </div>
-                        <i class="bi bi-list-check display-6 text-primary"></i>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <h3 class="mb-0">{{ total_pedidos }}</h3>
+                        <i class="bi bi-list-ul display-6 text-primary"></i>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Pendientes de pago -->
         <div class="col-sm-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0">
                 <div class="card-body">
-                    <h6 class="card-subtitle text-muted">Pedidos entregados</h6>
-                    <div class="d-flex align-items-end justify-content-between mt-2">
-                        <div>
-                            <h3 class="mb-0">{{ pedidos_enviados }}</h3>
-                        </div>
-                        <i class="bi bi-truck display-6 text-success"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h6 class="card-subtitle text-muted">Pedidos pendientes</h6>
-                    <div class="d-flex align-items-end justify-content-between mt-2">
-                        <div>
-                            <h3 class="mb-0">{{ pedidos_pendientes }}</h3>
-                        </div>
+                    <h6 class="card-subtitle text-muted">Pendientes de pago</h6>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <h3 class="mb-0">{{ pedidos_pendientes_pago }}</h3>
                         <i class="bi bi-hourglass-split display-6 text-secondary"></i>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Pagados -->
         <div class="col-sm-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0">
                 <div class="card-body">
-                    <h6 class="card-subtitle text-muted">Pedidos cancelados</h6>
-                    <div class="d-flex align-items-end justify-content-between mt-2">
-                        <div>
-                            <h3 class="mb-0">{{ pedidos_cancelados }}</h3>
-                        </div>
+                    <h6 class="card-subtitle text-muted">Pagados</h6>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <h3 class="mb-0">{{ pedidos_pagados }}</h3>
+                        <i class="bi bi-cash-stack display-6 text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- En preparación -->
+        <div class="col-sm-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">En preparación</h6>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <h3 class="mb-0">{{ pedidos_preparacion }}</h3>
+                        <i class="bi bi-egg-fried display-6 text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Listo para entregar -->
+        <div class="col-sm-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">Listos</h6>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <h3 class="mb-0">{{ pedidos_listo }}</h3>
+                        <i class="bi bi-bag-check display-6 text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- En camino -->
+        <div class="col-sm-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">En camino</h6>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <h3 class="mb-0">{{ pedidos_en_camino }}</h3>
+                        <i class="bi bi-truck display-6 text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entregados -->
+        <div class="col-sm-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">Entregados</h6>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <h3 class="mb-0">{{ pedidos_enviados }}</h3>
+                        <i class="bi bi-hand-thumbs-up display-6 text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cancelados -->
+        <div class="col-sm-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">Cancelados</h6>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <h3 class="mb-0">{{ pedidos_cancelados }}</h3>
                         <i class="bi bi-x-circle display-6 text-danger"></i>
                     </div>
                 </div>
@@ -69,34 +121,38 @@
         </div>
     </div>
 
-    <div class="card mb-4 shadow-sm">
+    <!-- === FILTROS DE ESTADO === -->
+    <div class="card mb-4 shadow-sm border-0">
         <div class="card-body">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mb-3">
                 <div>
                     <h5 class="card-title mb-0">Listado de pedidos</h5>
-                    <small class="text-muted">Filtra por estado para ver pedidos específicos</small>
+                    <small class="text-muted">Filtra por estado</small>
                 </div>
-                <div>
-                    <div class="btn-group" role="group" aria-label="Filtro estados">
-                        <a href="?estado=all" class="btn btn-sm {% if current_filter == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %}">Todos ({{ total_pedidos }})</a>
-                        <a href="?estado=pendiente" class="btn btn-sm {% if current_filter == 'pendiente' %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Pendientes ({{ pedidos_pendientes }})</a>
-                        <a href="?estado=enviado" class="btn btn-sm {% if current_filter == 'enviado' %}btn-success{% else %}btn-outline-success{% endif %}">Entregados ({{ pedidos_enviados }})</a>
-                        <a href="?estado=cancelado" class="btn btn-sm {% if current_filter == 'cancelado' %}btn-danger{% else %}btn-outline-danger{% endif %}">Cancelados ({{ pedidos_cancelados }})</a>
-                    </div>
+                <div class="btn-group" role="group">
+                    <a href="?estado=all" class="btn btn-sm {% if current_filter == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %}">Todos</a>
+                    <a href="?estado=pendiente_pago" class="btn btn-sm {% if current_filter == 'pendiente_pago' %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Pendiente pago</a>
+                    <a href="?estado=pagado" class="btn btn-sm {% if current_filter == 'pagado' %}btn-info{% else %}btn-outline-info{% endif %}">Pagado</a>
+                    <a href="?estado=en_preparacion" class="btn btn-sm {% if current_filter == 'en_preparacion' %}btn-warning{% else %}btn-outline-warning{% endif %}">Preparación</a>
+                    <a href="?estado=listo" class="btn btn-sm {% if current_filter == 'listo' %}btn-primary{% else %}btn-outline-primary{% endif %}">Listo</a>
+                    <a href="?estado=en_camino" class="btn btn-sm {% if current_filter == 'en_camino' %}btn-success{% else %}btn-outline-success{% endif %}">En camino</a>
+                    <a href="?estado=enviado" class="btn btn-sm {% if current_filter == 'enviado' %}btn-success{% else %}btn-outline-success{% endif %}">Entregado</a>
+                    <a href="?estado=cancelado" class="btn btn-sm {% if current_filter == 'cancelado' %}btn-danger{% else %}btn-outline-danger{% endif %}">Cancelado</a>
                 </div>
             </div>
 
+            <!-- === TABLA DE PEDIDOS === -->
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Productos</th>
-                            <th scope="col">Acciones</th>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Total</th>
+                            <th>Productos</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,15 +162,17 @@
                             <td>{{ order.usuario.username }}</td>
                             <td>{{ order.fecha|date:'d/m/Y H:i' }}</td>
                             <td>
-                                {% if order.estado == 'pendiente' %}
-                                    <span class="badge bg-secondary">{{ order.get_estado_display }}</span>
-                                {% elif order.estado == 'enviado' %}
-                                    <span class="badge bg-success">{{ order.get_estado_display }}</span>
-                                {% elif order.estado == 'cancelado' %}
-                                    <span class="badge bg-danger">{{ order.get_estado_display }}</span>
-                                {% else %}
-                                    <span class="badge bg-secondary">{{ order.get_estado_display }}</span>
-                                {% endif %}
+                                <span class="badge
+                                    {% if order.estado == 'pendiente_pago' %}bg-secondary
+                                    {% elif order.estado == 'pagado' %}bg-info
+                                    {% elif order.estado == 'en_preparacion' %}bg-warning
+                                    {% elif order.estado == 'listo' %}bg-primary
+                                    {% elif order.estado == 'en_camino' %}bg-success
+                                    {% elif order.estado == 'enviado' %}bg-success
+                                    {% elif order.estado == 'cancelado' %}bg-danger
+                                    {% endif %}">
+                                    {{ order.get_estado_display }}
+                                </span>
                             </td>
                             <td>${{ order.total }}</td>
                             <td style="min-width:220px;">
@@ -122,7 +180,9 @@
                                     {% for item in order.items.all %}
                                         <li class="mb-1">
                                             <strong>{{ item.producto.nombre }}</strong>
-                                            <div class="small text-muted">Cantidad: {{ item.cantidad }} • Precio unit.: ${{ item.precio_unitario }} • Subtotal: ${{ item.subtotal }}</div>
+                                            <div class="small text-muted">
+                                                Cant: {{ item.cantidad }} • Precio: ${{ item.precio_unitario }} • Subtotal: ${{ item.subtotal }}
+                                            </div>
                                         </li>
                                     {% endfor %}
                                 </ul>

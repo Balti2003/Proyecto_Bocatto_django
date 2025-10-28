@@ -9,35 +9,37 @@
 {% block head_title %}Mi Perfil | Bocatto{% endblock %}
 
 {% block page_content %}
-<div class="container py-5">
+<div class="container py-5 fade-in">
     {% include '_includes/_messages.html' %}
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm border-0 rounded-4">
-                <div class="card-body p-4">
+        <div class="col-md-8 col-lg-6">
+            <div class="profile-card shadow-lg">
+                <div class="profile-header">
+                    <i class="bi bi-person-circle"></i>
+                    <h2>Mi Perfil</h2>
+                    <p class="mb-0">{{ request.user.username|default:"Usuario" }}</p>
+                </div>
 
-                    <h2 class="fw-bold text-center text-danger mb-4">Mi Perfil</h2>
-
-                    <div class="mb-4">
-                        <p><strong>Usuario:</strong> {{ request.user.username|default:"-" }}</p>
-                        <p><strong>Email:</strong> {{ request.user.email|default:"-" }}</p>
-                        <p><strong>Nombre:</strong> {{ request.user.first_name|default:"-" }}</p>
-                        <p><strong>Apellido:</strong> {{ request.user.last_name|default:"-" }}</p>
-                        <p><strong>Fecha de registro:</strong> {{ request.user.date_joined|date:"d/m/Y"|default:"-" }}</p>
+                <div class="profile-body">
+                    <div class="profile-info mb-4">
+                        <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> {{ request.user.email|default:"-" }}</p>
+                        <p><i class="bi bi-person-fill"></i> <strong>Nombre:</strong> {{ request.user.first_name|default:"-" }}</p>
+                        <p><i class="bi bi-person-fill"></i> <strong>Apellido:</strong> {{ request.user.last_name|default:"-" }}</p>
+                        <p><i class="bi bi-calendar-check-fill"></i> <strong>Fecha de registro:</strong> {{ request.user.date_joined|date:"d/m/Y"|default:"-" }}</p>
                     </div>
 
                     <div class="d-flex flex-wrap gap-3 justify-content-center">
                         {% if not es_empleado %}
-                            <a href="{% url 'order_list' %}" class="btn btn-outline-danger fw-bold">
-                                Mis pedidos
+                            <a href="{% url 'order_list' %}" class="btn btn-outline-danger btn-custom">
+                                <i class="bi bi-bag-fill"></i> Mis pedidos
                             </a>
                         {% endif %}
-                        <a href="{% url 'password_change' %}" class="btn btn-outline-dark fw-bold">
-                            Cambiar contraseña
+                        <a href="{% url 'password_change' %}" class="btn btn-outline-dark btn-custom">
+                            <i class="bi bi-lock-fill"></i> Cambiar contraseña
                         </a>
-                        <a href="{% url 'logout' %}" class="btn btn-danger fw-bold">
-                            Cerrar sesión
+                        <a href="{% url 'logout' %}" class="btn btn-danger btn-custom">
+                            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
                         </a>
                     </div>
                 </div>

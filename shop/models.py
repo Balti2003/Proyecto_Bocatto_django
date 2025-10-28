@@ -10,7 +10,7 @@ class Category(models.Model): # Categorias de productos
         return self.nombre
 
 
-class Product(models.Model): # Producto que se vende
+class Product(models.Model): # Producto
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -23,8 +23,12 @@ class Product(models.Model): # Producto que se vende
 
 class Order(models.Model): # Orden de compra hecha por un usuario
     ESTADOS = [
-        ('pendiente', 'Pendiente'),
-        ('enviado', 'Enviado'),
+        ('pendiente_pago', 'Pendiente de Pago'),
+        ('pagado', 'Pagado'),
+        ('en_preparacion', 'En Preparación'),
+        ('listo', 'Listo para Entregar'),
+        ('en_camino', 'En Camino'),
+        ('enviado', 'Enviado / Entregado'),
         ('cancelado', 'Cancelado'),
     ]
 
@@ -40,7 +44,7 @@ class Order(models.Model): # Orden de compra hecha por un usuario
 
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='pedidos')
     fecha = models.DateTimeField(auto_now_add=True)
-    estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente_pago')
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     metodo_pago = models.CharField(max_length=20, choices=METODOS_PAGO, default="efectivo")
     metodo_entrega = models.CharField(max_length=20, choices=METODOS_ENTREGA, default="retiro")

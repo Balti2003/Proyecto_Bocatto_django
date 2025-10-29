@@ -1,0 +1,8 @@
+{% extends "general/layout.html" %}
+{% block page_content %}
+<div class="container text-center py-5">
+  <h2 class="text-danger fw-bold">❌ Error o cancelación de pago</h2>
+  <p>Tu pago no se completó. Podés intentarlo nuevamente.</p>
+  <a href="{% url 'order_list' %}" class="btn btn-outline-danger mt-3">Volver</a>
+</div>
+{% endblock %}

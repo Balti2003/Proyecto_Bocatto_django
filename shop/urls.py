@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ProductsByCategoryView, ProductListView, ProductDetailView, CartView, AddToCartView
+from .views import MercadoPagoInitView, PaymentFailureView, PaymentSuccessView, ProductsByCategoryView, ProductListView, ProductDetailView, CartView, AddToCartView
 from .views import RemoveFromCartView, CheckoutView, OrderDetailView, OrderListView, PasswordChangeView, PasswordChangeDoneView, ProductCreateView
 
 urlpatterns = [
@@ -15,4 +15,7 @@ urlpatterns = [
     path('password_change/', PasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
     path("product/new/", ProductCreateView.as_view(), name="product-create"),
+    path("pedido/<int:pk>/pagar/", MercadoPagoInitView.as_view(), name="order_pay"),
+    path("pago/success/", PaymentSuccessView.as_view(), name="payment_success"),
+    path("pago/failure/", PaymentFailureView.as_view(), name="payment_failure"),
 ]

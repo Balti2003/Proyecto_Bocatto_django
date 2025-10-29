@@ -1,0 +1,8 @@
+{% extends "general/layout.html" %}
+{% block page_content %}
+<div class="container text-center py-5">
+  <h2 class="text-success fw-bold">✅ Pago exitoso</h2>
+  <p>Tu pago fue procesado correctamente.</p>
+  <a href="{% url 'order_list' %}" class="btn btn-outline-primary mt-3">Ver mis pedidos</a>
+</div>
+{% endblock %}

@@ -108,7 +108,7 @@
         </div>
 
         <!-- Cancelados -->
-        <div class="col-sm-3">
+        <div class="col-sm-3 pb-5">
             <div class="card shadow-sm border-0">
                 <div class="card-body">
                     <h6 class="card-subtitle text-muted">Cancelados</h6>
@@ -132,12 +132,12 @@
                 <div class="btn-group" role="group">
                     <a href="?estado=all" class="btn btn-sm {% if current_filter == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %}">Todos</a>
                     <a href="?estado=pendiente_pago" class="btn btn-sm {% if current_filter == 'pendiente_pago' %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Pendiente pago</a>
-                    <a href="?estado=pagado" class="btn btn-sm {% if current_filter == 'pagado' %}btn-info{% else %}btn-outline-info{% endif %}">Pagado</a>
-                    <a href="?estado=en_preparacion" class="btn btn-sm {% if current_filter == 'en_preparacion' %}btn-warning{% else %}btn-outline-warning{% endif %}">Preparación</a>
-                    <a href="?estado=listo" class="btn btn-sm {% if current_filter == 'listo' %}btn-primary{% else %}btn-outline-primary{% endif %}">Listo</a>
+                    <a href="?estado=pagado" class="btn btn-sm {% if current_filter == 'pagado' %}btn-info{% else %}btn-outline-info{% endif %}">Pagados</a>
+                    <a href="?estado=en_preparacion" class="btn btn-sm {% if current_filter == 'en_preparacion' %}btn-warning{% else %}btn-outline-warning{% endif %}">En Preparación</a>
+                    <a href="?estado=listo" class="btn btn-sm {% if current_filter == 'listo' %}btn-primary{% else %}btn-outline-primary{% endif %}">Listos</a>
                     <a href="?estado=en_camino" class="btn btn-sm {% if current_filter == 'en_camino' %}btn-success{% else %}btn-outline-success{% endif %}">En camino</a>
-                    <a href="?estado=enviado" class="btn btn-sm {% if current_filter == 'enviado' %}btn-success{% else %}btn-outline-success{% endif %}">Entregado</a>
-                    <a href="?estado=cancelado" class="btn btn-sm {% if current_filter == 'cancelado' %}btn-danger{% else %}btn-outline-danger{% endif %}">Cancelado</a>
+                    <a href="?estado=enviado" class="btn btn-sm {% if current_filter == 'enviado' %}btn-success{% else %}btn-outline-success{% endif %}">Entregados</a>
+                    <a href="?estado=cancelado" class="btn btn-sm {% if current_filter == 'cancelado' %}btn-danger{% else %}btn-outline-danger{% endif %}">Cancelados</a>
                 </div>
             </div>
 

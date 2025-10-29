@@ -1,3 +1,5 @@
+from django.conf import settings
+import mercadopago
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
@@ -382,3 +384,51 @@ def logout_view(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, "Has cerrado sesion correctamente")
     return HttpResponseRedirect(reverse('home'))
+
+
+#Mercado pago
+class MercadoPagoInitView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        order = get_object_or_404(Order, pk=pk, usuario=request.user)
+
+        if order.estado != "pendiente_pago":
+            messages.info(request, "Este pedido ya fue pagado o no requiere pago.")
+            return redirect("order_detail", pk=order.id)
+
+        sdk = mercadopago.SDK(settings.MERCADOPAGO_ACCESS_TOKEN)
+
+        preference_data = {
+            "items": [
+                {
+                    "title": f"Pedido #{order.id}",
+                    "quantity": 1,
+                    "currency_id": "ARS",
+                    "unit_price": float(order.total),
+                }
+            ],
+            "back_urls": {
+                #Mercado Pago NO acepta localhost, por lo que en produccion se cambia
+                "success": "https://www.google.com",
+                "failure": "https://www.google.com",
+            },
+            #"auto_return": "approved",
+        }
+
+        result = sdk.preference().create(preference_data)
+        preference = result["response"]
+        
+        if 'sandbox_init_point' in preference:
+            payment_url = preference["sandbox_init_point"]
+        else:
+            messages.error(request, "No se pudo generar el enlace de pago.")
+            return redirect('order_detail', pk=order.pk)
+
+        return redirect(payment_url)
+
+
+class PaymentSuccessView(TemplateView):
+    template_name = "../templates/shop/payment_success.html"
+
+
+class PaymentFailureView(TemplateView):
+    template_name = "../templates/shop/payment_failure.html"

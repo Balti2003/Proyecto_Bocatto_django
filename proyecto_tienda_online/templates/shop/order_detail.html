@@ -103,10 +103,10 @@
     {% if not es_empleado %}
         <div class="text-center d-flex justify-content-center gap-3">
             <a href="{% url 'product_list' %}" class="btn btn-danger btn-lg rounded-pill">
-                🛒 Seguir comprando
+                Ir a la tienda   
             </a>
 
-            {% if order.estado == "pendiente_pago" and order.metodo_pago == "transferencia" %}
+            {% if order.estado == "pendiente_pago" and order.metodo_pago == "mercadopago" %}
                 <a href="{% url 'order_pay' order.pk %}" class="btn btn-danger btn-lg rounded-pill">
                     💳 Pagar con Mercado Pago
                 </a>

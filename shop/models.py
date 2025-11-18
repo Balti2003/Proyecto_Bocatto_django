@@ -34,7 +34,7 @@ class Order(models.Model): # Orden de compra hecha por un usuario
 
     METODOS_PAGO = [
         ("efectivo", "Efectivo"),
-        ("transferencia", "Transferencia"),
+        ("mercadopago", "Mercado Pago"),
     ]
 
     METODOS_ENTREGA = [

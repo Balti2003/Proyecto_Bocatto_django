@@ -1,0 +1,87 @@
+{% extends "general/layout.html" %}
+{% load static %}
+
+{% block head_extra %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="{% static '/css/admin_reports.css' %}">
+{% endblock %}
+
+{% block head_title %}Reportes - Bocatto{% endblock %}
+
+{% block page_content %}
+
+<div class="container py-5">
+
+    {% include '_includes/_messages.html' %}
+
+    <div class="card shadow-lg rounded-4 border-0">
+        <div class="card-header bg-danger text-white rounded-top-4">
+            <h2 class="mb-0 text-center">📊 Panel de Estadísticas</h2>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Pedidos por día -->
+            <div class="chart-container">
+                <h3 class="text-center mb-3">Pedidos por día</h3>
+                <canvas id="chartDias"></canvas>
+            </div>
+
+            <!-- Ingresos por mes -->
+            <div class="chart-container">
+                <h3 class="text-center mb-3">Ingresos por mes</h3>
+                <canvas id="chartMeses"></canvas>
+            </div>
+
+            <!-- Estados de pedidos -->
+            <div class="chart-container">
+                <h3 class="text-center mb-3">Estado de los pedidos</h3>
+                <canvas id="chartEstados"></canvas>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pedidos por día
+    new Chart(document.getElementById("chartDias"), {
+        type: "line",
+        data: {
+            labels: {{ labels_dias|safe }},
+            datasets: [{
+                label: "Pedidos",
+                data: {{ datos_dias|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+
+    // Ingresos por mes
+    new Chart(document.getElementById("chartMeses"), {
+        type: "bar",
+        data: {
+            labels: {{ labels_meses|safe }},
+            datasets: [{
+                label: "Ingresos (ARS)",
+                data: {{ datos_meses|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+
+    // Estados de pedidos
+    new Chart(document.getElementById("chartEstados"), {
+        type: "pie",
+        data: {
+            labels: {{ labels_estados|safe }},
+            datasets: [{
+                label: "Estados",
+                data: {{ datos_estados|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+</script>
+
+{% endblock %}

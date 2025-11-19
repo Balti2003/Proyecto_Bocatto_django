@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
-
+from django.db.models import Count, Sum
 from shop.mixins import RoleRequiredMixin
 from .forms import LoginForm, ProductForm, RegistrationForm, ContactForm
 from django.contrib.auth.decorators import login_required
@@ -16,6 +16,7 @@ from .models import Category, Product, Order, OrderItem
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Vistas generales
 
@@ -378,6 +379,53 @@ class OrderListView(ListView):
         return Order.objects.filter(usuario=self.request.user).order_by("-fecha")
 
 
+class AdminReportsView(LoginRequiredMixin, RoleRequiredMixin, View):
+    template_name = "../templates/general/admin_reports.html"
+    role = "Empleados"
+
+    def get(self, request):
+        # Pedidos por dia
+        pedidos_por_dia = (
+            Order.objects.values("fecha__date")
+            .annotate(total=Count("id"))
+            .order_by("fecha__date")
+        )
+
+        labels_dias = [str(x["fecha__date"]) for x in pedidos_por_dia]
+        datos_dias = [x["total"] for x in pedidos_por_dia]
+
+        # Ingresos por mes
+        ingresos_por_mes = (
+            Order.objects.values("fecha__month")
+            .annotate(ingresos=Sum("total"))
+            .order_by("fecha__month")
+        )
+
+        labels_meses = [f"Mes {x['fecha__month']}" for x in ingresos_por_mes]
+        datos_meses = [float(x["ingresos"] or 0) for x in ingresos_por_mes]
+
+        #Estados de pedidos
+        estados = (
+            Order.objects.values("estado")
+            .annotate(total=Count("id"))
+            .order_by("estado")
+        )
+
+        labels_estados = [x["estado"] for x in estados]
+        datos_estados = [x["total"] for x in estados]
+
+        contexto = {
+            "labels_dias": labels_dias,
+            "datos_dias": datos_dias,
+            "labels_meses": labels_meses,
+            "datos_meses": datos_meses,
+            "labels_estados": labels_estados,
+            "datos_estados": datos_estados,
+        }
+
+        return render(request, self.template_name, contexto)
+
+
 # Vista de logout   
 @login_required
 def logout_view(request):
@@ -406,6 +454,9 @@ class MercadoPagoInitView(LoginRequiredMixin, View):
                     "unit_price": float(order.total),
                 }
             ],
+            "payer": {
+                "email": request.user.email
+            },
             "back_urls": {
                 #Mercado Pago NO acepta localhost, por lo que en produccion se cambia
                 "success": "https://www.google.com",
@@ -415,13 +466,10 @@ class MercadoPagoInitView(LoginRequiredMixin, View):
         }
 
         result = sdk.preference().create(preference_data)
+        
         preference = result["response"]
         
-        if 'sandbox_init_point' in preference:
-            payment_url = preference["sandbox_init_point"]
-        else:
-            messages.error(request, "No se pudo generar el enlace de pago.")
-            return redirect('order_detail', pk=order.pk)
+        payment_url = preference["init_point"]
 
         return redirect(payment_url)
 

@@ -67,6 +67,8 @@
                                 {% if es_empleado %}
                                     <li><a class="dropdown-item" href="{% url 'home-empleado' %}">Home</a></li>
                                     <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'admin_reports' %}">Reportes y Estadisticas</a></li>
+                                    <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{% url 'product-create' %}">Subir productos</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                 {% endif %}

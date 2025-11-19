@@ -1,0 +1,57 @@
+    .dashboard-container {
+        max-width: 1100px !important;
+        margin: 0 auto !important;
+        padding: 40px 20px !important;
+    }
+
+    .dashboard-title {
+        text-align: center !important;
+        font-weight: 800 !important;
+        font-size: 2.4rem !important;
+        color: #b30000 !important;
+        margin-bottom: 40px !important;
+    }
+
+    .chart-card {
+        background: #ffffff !important;
+        border-radius: 20px !important;
+        padding: 25px !important;
+        margin-bottom: 45px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.10) !important;
+        transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+        animation: fadeIn 0.7s ease forwards !important;
+        opacity: 0 !important;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(10px); }
+    }
+
+    .chart-card:hover {
+        transform: translateY(-6px) scale(1.02) !important;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.15) !important;
+    }
+
+    .chart-card h3 {
+        text-align: center !important;
+        font-weight: 700 !important;
+        color: #333 !important;
+        margin-bottom: 25px !important;
+    }
+
+    .chart-container {
+        max-width: 700px !important;
+        margin: 25px auto !important;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: 420px !important;
+    }
+
+    #chartEstados {
+        height: 330px !important;
+        max-width: 380px !important;
+        margin: 0 auto !important;
+    }

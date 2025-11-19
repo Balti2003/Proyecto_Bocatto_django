@@ -16,7 +16,6 @@ from .models import Category, Product, Order, OrderItem
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
-from django.contrib.admin.views.decorators import staff_member_required
 
 # Vistas generales
 
@@ -326,7 +325,7 @@ class CheckoutView(LoginRequiredMixin, View):
         # Vaciar carrito de la sesión
         request.session["carrito"] = {}
 
-        messages.success(request, f"Tu pedido #{order.id} ha sido creado con éxito.")
+        messages.success(request, "Tu pedido ha sido creado con éxito.")
         return redirect("order_detail", pk=order.id)
 
 
@@ -414,6 +413,26 @@ class AdminReportsView(LoginRequiredMixin, RoleRequiredMixin, View):
         labels_estados = [x["estado"] for x in estados]
         datos_estados = [x["total"] for x in estados]
 
+        #Top 5 Productos Más Vendidos
+        top_productos = (
+            OrderItem.objects.values("producto__nombre")
+            .annotate(total_vendidos=Sum("cantidad"))
+            .order_by("-total_vendidos")[:5]
+        )
+
+        labels_top_prod = [x["producto__nombre"] for x in top_productos]
+        datos_top_prod = [x["total_vendidos"] for x in top_productos]
+
+        #Top 5 Clientes con Más Pedidos
+        top_clientes = (
+            Order.objects.values("usuario__username")
+            .annotate(total=Count("id"))
+            .order_by("-total")[:5]
+        )
+        
+        labels_top_users = [x["usuario__username"] for x in top_clientes]
+        datos_top_users = [x["total"] for x in top_clientes]
+        
         contexto = {
             "labels_dias": labels_dias,
             "datos_dias": datos_dias,
@@ -421,6 +440,10 @@ class AdminReportsView(LoginRequiredMixin, RoleRequiredMixin, View):
             "datos_meses": datos_meses,
             "labels_estados": labels_estados,
             "datos_estados": datos_estados,
+            "labels_top_prod": labels_top_prod,
+            "datos_top_prod": datos_top_prod,
+            "labels_top_users": labels_top_users,
+            "datos_top_users": datos_top_users,
         }
 
         return render(request, self.template_name, contexto)

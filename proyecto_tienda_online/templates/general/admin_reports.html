@@ -16,7 +16,7 @@
 
     <div class="card shadow-lg rounded-4 border-0">
         <div class="card-header bg-danger text-white rounded-top-4">
-            <h2 class="mb-0 text-center">📊 Panel de Estadísticas</h2>
+            <h2 class="mb-0 text-center">📊 Panel de Reportes y Estadísticas</h2>
         </div>
 
         <div class="card-body">
@@ -39,6 +39,17 @@
                 <canvas id="chartEstados"></canvas>
             </div>
 
+            <!-- Productos mas vendidos -->
+            <div class="chart-container">
+                <h3 class="text-center mb-3">Top 5 productos más vendidos</h3>
+                <canvas id="chartProductos"></canvas>
+            </div>
+
+            <!-- Clientes con mas pedidos -->
+            <div class="chart-container">
+                <h3 class="text-center mb-3">Top 5 clientes con más pedidos</h3>
+                <canvas id="chartClientes"></canvas>
+            </div>
         </div>
     </div>
 </div>
@@ -78,6 +89,32 @@
             datasets: [{
                 label: "Estados",
                 data: {{ datos_estados|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+    
+    // --- Top 5 Productos más vendidos ---
+    new Chart(document.getElementById("chartProductos"), {
+        type: "bar",
+        data: {
+            labels: {{ labels_top_prod|safe }},
+            datasets: [{
+                label: "Unidades vendidas",
+                data: {{ datos_top_prod|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+
+    // --- Top 5 Clientes con más pedidos ---
+    new Chart(document.getElementById("chartClientes"), {
+        type: "bar",
+        data: {
+            labels: {{ labels_top_users|safe }},
+            datasets: [{
+                label: "Cantidad de pedidos",
+                data: {{ datos_top_users|safe }},
                 borderWidth: 2
             }]
         }

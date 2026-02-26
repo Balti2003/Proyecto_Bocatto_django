@@ -15,3 +15,35 @@ select.form-select:focus {
     border-color: #198754;
     box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
 }
+
+/* Estilos base para la card que ya tiene la clase 'hover-scale' en el HTML */
+.hover-scale {
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    will-change: transform, box-shadow;
+    border: 1px solid rgba(0,0,0,0.05) !important; /* Borde muy sutil */
+}
+
+/* Efecto al pasar el ratón sobre la card */
+.hover-scale:hover {
+    transform: translateY(-10px); /* Eleva la tarjeta */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important; /* Sombra más profunda y suave */
+}
+
+/* Contenedor de la imagen para asegurar que el zoom no se salga */
+.card-img-container {
+    overflow: hidden;
+    border-top-left-radius: calc(1rem - 1px); /* Ajuste para bordes redondeados */
+    border-top-right-radius: calc(1rem - 1px);
+}
+
+/* Estilos para la imagen dentro de la card */
+.hover-scale .card-img-top {
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    object-fit: cover; /* Asegura que la imagen llene el espacio sin deformarse */
+    height: 200px; /* Altura fija para consistencia */
+}
+
+/* Efecto de zoom en la imagen al hacer hover en la card */
+.hover-scale:hover .card-img-top {
+    transform: scale(1.08); /* Zoom suave */
+}

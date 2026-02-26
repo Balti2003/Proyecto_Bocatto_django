@@ -1,0 +1,45 @@
+{% extends "general/layout.html" %}
+{% block page_content %}
+
+{% block head_title %}
+    Gestión de Inventario | Bocatto
+{% endblock %}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Gestión de Inventario</h2>
+        <a href="{% url 'product-create' %}" class="btn btn-warning"> + Nuevo Producto</a>
+    </div>
+
+    <div class="table-responsive shadow-sm rounded-4">
+        <table class="table table-hover align-middle bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in productos %}
+                <tr>
+                    <td>
+                        {% if p.imagen %}
+                            <img src="{{ p.imagen.url }}" width="50" class="rounded">
+                        {% endif %}
+                    </td>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.categoria.nombre }}</td>
+                    <td>${{ p.precio }}</td>
+                    <td>
+                        <a href="{% url 'product-update' p.id %}" class="btn btn-danger btn-sm">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

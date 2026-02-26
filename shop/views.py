@@ -3,7 +3,7 @@ import mercadopago
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import TemplateView, FormView, CreateView, ListView, DetailView, View
+from django.views.generic import TemplateView, FormView, CreateView, ListView, DetailView, UpdateView, View
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -231,6 +231,25 @@ class ProductCreateView(LoginRequiredMixin, RoleRequiredMixin, CreateView):
     form_class = ProductForm
     template_name = "../templates/shop/product_form.html"
     success_url = reverse_lazy("home-empleado")
+
+
+class ProductUpdateView(LoginRequiredMixin, RoleRequiredMixin, UpdateView):
+    role = "Empleados"
+    model = Product
+    form_class = ProductForm
+    template_name = "../templates/shop/product_form.html"
+    success_url = reverse_lazy("product-manage")
+
+    def form_valid(self, form):
+            messages.success(self.request, "Producto actualizado correctamente.")
+            return super().form_valid(form)
+    
+
+class ProductManageListView(LoginRequiredMixin, RoleRequiredMixin, ListView):
+    role = "Empleados"
+    model = Product
+    template_name = "../templates/shop/product_manage_list.html"
+    context_object_name = "productos"
 
 
 #Vistas de carrito

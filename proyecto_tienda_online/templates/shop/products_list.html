@@ -13,20 +13,49 @@
 
     <h2 class="text-center mb-5 fw-bold">Todos los Productos</h2>
 
-    <!-- Filtro de categorías -->
-    <form method="get" class="mb-5 d-flex justify-content-center align-items-center gap-3 flex-wrap">
-        <label for="categoria" class="form-label fw-semibold">Filtrar por categoría:</label>
-        <select name="categoria" id="categoria" onchange="this.form.submit()" class="form-select w-auto shadow-sm">
-            <option value="">Todas las categorías</option>
-            {% for categoria in categorias %}
-                <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" == categoria_seleccionada %}selected{% endif %}>
-                    {{ categoria.nombre }}
-                </option>
-            {% endfor %}
-        </select>
-    </form>
+    <div class="card shadow-sm border-0 rounded-4 mb-5 p-4 bg-light">
+        <form method="get" action="{% url 'product_list' %}" class="row g-3 align-items-end">
+            
+            <div class="col-md-4">
+                <label for="q" class="form-label fw-semibold">Buscar:</label>
+                <input type="text" name="q" id="q" class="form-control shadow-sm" 
+                       placeholder="Nombre del producto..." value="{{ busqueda }}">
+            </div>
 
-    <!-- Listado de productos -->
+            <div class="col-md-3">
+                <label for="categoria" class="form-label fw-semibold">Categoría:</label>
+                <select name="categoria" id="categoria" class="form-select shadow-sm">
+                    <option value="">Todas las categorías</option>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" == categoria_seleccionada %}selected{% endif %}>
+                            {{ categoria.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label for="min_precio" class="form-label fw-semibold">Min $:</label>
+                <input type="number" name="min_precio" id="min_precio" class="form-control shadow-sm" 
+                       placeholder="0" value="{{ min_p }}">
+            </div>
+            <div class="col-md-2">
+                <label for="max_precio" class="form-label fw-semibold">Max $:</label>
+                <input type="number" name="max_precio" id="max_precio" class="form-control shadow-sm" 
+                       placeholder="Max" value="{{ max_p }}">
+            </div>
+
+            <div class="col-md-1 d-flex gap-2">
+                <button type="submit" class="btn btn-danger w-100 shadow-sm rounded-3">
+                    <i class="bi bi-search"></i> Filtrar
+                </button>
+                <a href="{% url 'product_list' %}" class="btn btn-outline-secondary shadow-sm rounded-3" title="Limpiar filtros">
+                    Limpiar
+                </a>
+            </div>
+        </form>
+    </div>
+
     <div class="row g-4">
         {% for producto in productos %}
         <div class="col-md-3 col-sm-6">
@@ -47,9 +76,10 @@
             </div>
         </div>
         {% empty %}
-        <p class="text-center mt-4 fs-5 text-muted">No hay productos disponibles.</p>
+        <div class="col-12 text-center mt-4">
+            <p class="fs-5 text-muted">No se encontraron productos que coincidan con los filtros.</p>
+        </div>
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}

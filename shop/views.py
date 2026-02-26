@@ -173,16 +173,40 @@ class ProductListView(ListView):
     context_object_name = 'productos'
 
     def get_queryset(self):
+        # Empezamos con todos los productos
         queryset = Product.objects.all()
+        
+        # Capturamos los parámetros del GET
         categoria_id = self.request.GET.get('categoria')
+        busqueda = self.request.GET.get('q')
+        min_p = self.request.GET.get('min_precio')
+        max_p = self.request.GET.get('max_precio')
+
+        # Filtro por categoría (ya existente)
         if categoria_id:
             queryset = queryset.filter(categoria_id=categoria_id)
+        
+        # Filtro por nombre (Buscador)
+        if busqueda:
+            queryset = queryset.filter(nombre__icontains=busqueda)
+            
+        # Filtro por rango de precio
+        if min_p:
+            queryset = queryset.filter(precio__gte=min_p)
+        if max_p:
+            queryset = queryset.filter(precio__lte=max_p)
+            
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categorias'] = Category.objects.all()
+        # Mantenemos los valores en el formulario después de filtrar
         context['categoria_seleccionada'] = self.request.GET.get('categoria')
+        context['busqueda'] = self.request.GET.get('q', '')
+        context['min_p'] = self.request.GET.get('min_precio', '')
+        context['max_p'] = self.request.GET.get('max_precio', '')
+        
         return context
     
 

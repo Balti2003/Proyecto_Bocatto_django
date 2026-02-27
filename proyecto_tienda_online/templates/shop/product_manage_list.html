@@ -34,7 +34,14 @@
                     <td>{{ p.categoria.nombre }}</td>
                     <td>${{ p.precio }}</td>
                     <td>
-                        <a href="{% url 'product-update' p.id %}" class="btn btn-danger btn-sm">Editar</a>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'product-update' p.id %}" class="btn btn-success btn-sm">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <a href="{% url 'product-delete' p.id %}" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </a>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}

@@ -3,7 +3,7 @@ import mercadopago
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import TemplateView, FormView, CreateView, ListView, DetailView, UpdateView, View
+from django.views.generic import DeleteView, TemplateView, FormView, CreateView, ListView, DetailView, UpdateView, View
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -250,6 +250,17 @@ class ProductManageListView(LoginRequiredMixin, RoleRequiredMixin, ListView):
     model = Product
     template_name = "../templates/shop/product_manage_list.html"
     context_object_name = "productos"
+
+
+class ProductDeleteView(LoginRequiredMixin, RoleRequiredMixin, DeleteView):
+    role = "Empleados"
+    model = Product
+    template_name = "../templates/shop/product_delete_confirm.html"
+    success_url = reverse_lazy("product-manage")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Producto eliminado correctamente.")
+        return super().delete(request, *args, **kwargs)
 
 
 #Vistas de carrito

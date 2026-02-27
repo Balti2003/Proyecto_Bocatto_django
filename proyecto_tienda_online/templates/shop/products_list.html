@@ -19,13 +19,13 @@
             <div class="col-md-4">
                 <label for="q" class="form-label fw-semibold">Buscar:</label>
                 <input type="text" name="q" id="q" class="form-control shadow-sm" 
-                       placeholder="Nombre del producto..." value="{{ busqueda }}">
+                    placeholder="Nombre del producto..." value="{{ busqueda }}">
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <label for="categoria" class="form-label fw-semibold">Categoría:</label>
                 <select name="categoria" id="categoria" class="form-select shadow-sm">
-                    <option value="">Todas las categorías</option>
+                    <option value="">Todas</option>
                     {% for categoria in categorias %}
                         <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" == categoria_seleccionada %}selected{% endif %}>
                             {{ categoria.nombre }}
@@ -37,21 +37,23 @@
             <div class="col-md-2">
                 <label for="min_precio" class="form-label fw-semibold">Min $:</label>
                 <input type="number" name="min_precio" id="min_precio" class="form-control shadow-sm" 
-                       placeholder="0" value="{{ min_p }}">
+                    placeholder="0" value="{{ min_p }}">
             </div>
             <div class="col-md-2">
                 <label for="max_precio" class="form-label fw-semibold">Max $:</label>
                 <input type="number" name="max_precio" id="max_precio" class="form-control shadow-sm" 
-                       placeholder="Max" value="{{ max_p }}">
+                    placeholder="Max" value="{{ max_p }}">
             </div>
 
-            <div class="col-md-1 d-flex gap-2">
-                <button type="submit" class="btn btn-danger w-100 shadow-sm rounded-3">
-                    <i class="bi bi-search"></i> Filtrar
-                </button>
-                <a href="{% url 'product_list' %}" class="btn btn-outline-secondary shadow-sm rounded-3" title="Limpiar filtros">
-                    Limpiar
-                </a>
+            <div class="col-md-2">
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger w-100 shadow-sm rounded-3" title="Filtrar">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <a href="{% url 'product_list' %}" class="btn btn-outline-secondary w-100 shadow-sm rounded-3" title="Limpiar filtros">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </div>
             </div>
         </form>
     </div>

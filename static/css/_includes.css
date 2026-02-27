@@ -4,9 +4,7 @@ body {
 
 /*Footer*/
 footer {
-    background-color: #212529 !important;
-    color: rgba(255, 255, 255, 0.7) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: rgba(26, 28, 29, 0.85) !important; 
 }
 
 footer a {

@@ -62,8 +62,6 @@
                                     <li><a class="dropdown-item" href="{% url 'order_list' %}">Mis pedidos</a></li>
                                 {% endif %}
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a></li>
-                                <li><hr class="dropdown-divider"></li>
                                 {% if es_empleado %}
                                     <li><a class="dropdown-item" href="{% url 'home-empleado' %}">Home</a></li>
                                     <li><hr class="dropdown-divider"></li>
@@ -72,6 +70,8 @@
                                     <li><a class="dropdown-item" href="{% url 'admin_reports' %}">Reportes y Estadisticas</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                 {% endif %}
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a></li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-danger fw-bold" href="{% url 'logout' %}">Cerrar sesión</a></li>
                             </ul>
                         </li>

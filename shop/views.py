@@ -27,7 +27,8 @@ class HomeView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categorias'] = Category.objects.all()
-        context['productos'] = Product.objects.all()[:8]
+        context['productos'] = Product.objects.order_by('?')[:8]
+        
         return context
 
 

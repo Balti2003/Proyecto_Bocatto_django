@@ -126,7 +126,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$870000$72L7D0w2cDDoU3vUgnRpAO$X4z07ThktO2vs4kz6jpP3A0tV5WZn77YN/MdjtvBuX0=','2026-03-02 17:30:49.720551',1,'baltasar','Baltasar','Lomello','baltasarlomello@live.com',1,1,'2025-08-27 19:50:28.000000'),(2,'pbkdf2_sha256$870000$yhB79kaL7p9xwuec6NMep4$yiBg3GuO4N+IC7r1VigKxrUdV70fJcEKp+BQhEZIhSA=','2026-03-02 17:25:34.036309',0,'administrador','Admin','Bocatto','',1,1,'2025-09-23 16:57:04.000000'),(3,'pbkdf2_sha256$870000$eXWuqAKTKNgNZECc9Yy4X2$SNNfz9HFE+OCSxxjEQDzJKmAQf22/Z4hIqnMEXrCoeo=','2025-11-19 20:20:36.629693',0,'elias','Elias','','elias@elias.com',0,1,'2025-11-19 20:12:24.792355');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$870000$72L7D0w2cDDoU3vUgnRpAO$X4z07ThktO2vs4kz6jpP3A0tV5WZn77YN/MdjtvBuX0=','2026-03-02 19:17:30.511433',1,'baltasar','Baltasar','Lomello','baltasarlomello@live.com',1,1,'2025-08-27 19:50:28.000000'),(2,'pbkdf2_sha256$870000$yhB79kaL7p9xwuec6NMep4$yiBg3GuO4N+IC7r1VigKxrUdV70fJcEKp+BQhEZIhSA=','2026-03-02 19:16:57.375045',0,'administrador','Admin','Bocatto','',1,1,'2025-09-23 16:57:04.000000'),(3,'pbkdf2_sha256$870000$eXWuqAKTKNgNZECc9Yy4X2$SNNfz9HFE+OCSxxjEQDzJKmAQf22/Z4hIqnMEXrCoeo=','2025-11-19 20:20:36.629693',0,'elias','Elias','','elias@elias.com',0,1,'2025-11-19 20:12:24.792355');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -296,7 +296,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('e9scvtgzm4wcc2lts6t5evrys4i0n8ek','.eJxVjMEOwiAQBf-FsyGUAgWP3vsNZJcFqRpISnsy_rsl6UFPL3kzmTfzsG_Z7y2ufiF2ZQO7_H4I4RlLB_SAcq881LKtC_Ku8JM2PleKr9vp_gUytNyzJFRAq6WMDgxOOk3CojVRJkJBY7CjCfpYiegcHJ4zZJ3FlOIglGKfL-oNOA4:1vx76X:dfVUs_0wybE17eLbZ22uKFagO-Su-6KBFI0U2fQWDNw','2026-03-16 17:30:49.726016');
+INSERT INTO `django_session` VALUES ('umlvcwlazgwhg2uzrr5n0hu9d59cbi0u','.eJxVjMEOwiAQBf-FsyGUAgWP3vsNZJcFqRpISnsy_rsl6UFPL3kzmTfzsG_Z7y2ufiF2ZQO7_H4I4RlLB_SAcq881LKtC_Ku8JM2PleKr9vp_gUytNyzJFRAq6WMDgxOOk3CojVRJkJBY7CjCfpYiegcHJ4zZJ3FlOIglGKfL-oNOA4:1vx8lm:qxG089TZrNOFDiWrMeDg3ApE-AFZ9MCsT8X9psBSiXw','2026-03-16 19:17:30.514014');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,7 +343,7 @@ CREATE TABLE `shop_order` (
   PRIMARY KEY (`id`),
   KEY `shop_order_usuario_id_f38a01fb_fk_auth_user_id` (`usuario_id`),
   CONSTRAINT `shop_order_usuario_id_f38a01fb_fk_auth_user_id` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +352,7 @@ CREATE TABLE `shop_order` (
 
 LOCK TABLES `shop_order` WRITE;
 /*!40000 ALTER TABLE `shop_order` DISABLE KEYS */;
-INSERT INTO `shop_order` VALUES (30,'2025-11-18 17:50:23.014815','pagado',6400.00,1,'delivery','mercadopago'),(31,'2025-11-18 18:00:23.611589','cancelado',15000.00,1,'retiro','mercadopago'),(32,'2025-11-18 18:01:05.518384','enviado',22200.00,1,'retiro','efectivo'),(33,'2025-11-18 18:01:48.870120','en_preparacion',5300.00,1,'delivery','mercadopago'),(34,'2025-11-18 18:04:50.488893','pendiente_pago',46000.00,1,'retiro','mercadopago'),(36,'2025-11-19 20:13:12.522643','pagado',16100.00,3,'retiro','mercadopago'),(37,'2025-11-19 20:21:02.966892','pendiente_pago',17100.00,3,'retiro','efectivo'),(38,'2026-02-26 17:30:43.041227','pendiente_pago',19400.00,1,'retiro','mercadopago'),(39,'2026-02-26 19:14:29.171300','pendiente_pago',6400.00,1,'retiro','mercadopago');
+INSERT INTO `shop_order` VALUES (30,'2025-11-18 17:50:23.014815','pagado',6400.00,1,'delivery','mercadopago'),(31,'2025-11-18 18:00:23.611589','cancelado',15000.00,1,'retiro','mercadopago'),(32,'2025-11-18 18:01:05.518384','enviado',22200.00,1,'retiro','efectivo'),(33,'2025-11-18 18:01:48.870120','pagado',5300.00,1,'delivery','mercadopago'),(34,'2025-11-18 18:04:50.488893','pagado',46000.00,1,'retiro','mercadopago'),(36,'2025-11-19 20:13:12.522643','enviado',16100.00,3,'retiro','mercadopago'),(37,'2025-11-19 20:21:02.966892','pagado',17100.00,3,'retiro','efectivo'),(38,'2026-02-26 17:30:43.041227','enviado',19400.00,1,'retiro','mercadopago'),(39,'2026-02-26 19:14:29.171300','cancelado',6400.00,1,'retiro','mercadopago'),(40,'2026-03-02 19:04:51.434920','pendiente_pago',7200.00,1,'delivery','mercadopago');
 /*!40000 ALTER TABLE `shop_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -374,7 +374,7 @@ CREATE TABLE `shop_orderitem` (
   KEY `shop_orderitem_producto_id_53046610_fk_shop_product_id` (`producto_id`),
   CONSTRAINT `shop_orderitem_pedido_id_2afe1aa7_fk_shop_order_id` FOREIGN KEY (`pedido_id`) REFERENCES `shop_order` (`id`),
   CONSTRAINT `shop_orderitem_producto_id_53046610_fk_shop_product_id` FOREIGN KEY (`producto_id`) REFERENCES `shop_product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -383,7 +383,7 @@ CREATE TABLE `shop_orderitem` (
 
 LOCK TABLES `shop_orderitem` WRITE;
 /*!40000 ALTER TABLE `shop_orderitem` DISABLE KEYS */;
-INSERT INTO `shop_orderitem` VALUES (39,1,6400.00,30,3),(40,1,8500.00,31,9),(41,2,2200.00,31,23),(42,1,2100.00,31,28),(43,3,5600.00,32,2),(44,3,1800.00,32,25),(45,2,1000.00,33,16),(46,3,1100.00,33,15),(47,2,8000.00,34,19),(48,2,15000.00,34,22),(50,1,7500.00,36,20),(51,1,2200.00,36,23),(52,1,6400.00,36,3),(53,2,7500.00,37,10),(54,1,2100.00,37,28),(55,2,6500.00,38,1),(56,1,6400.00,38,4),(57,1,6400.00,39,4);
+INSERT INTO `shop_orderitem` VALUES (39,1,6400.00,30,3),(40,1,8500.00,31,9),(41,2,2200.00,31,23),(42,1,2100.00,31,28),(43,3,5600.00,32,2),(44,3,1800.00,32,25),(45,2,1000.00,33,16),(46,3,1100.00,33,15),(47,2,8000.00,34,19),(48,2,15000.00,34,22),(50,1,7500.00,36,20),(51,1,2200.00,36,23),(52,1,6400.00,36,3),(53,2,7500.00,37,10),(54,1,2100.00,37,28),(55,2,6500.00,38,1),(56,1,6400.00,38,4),(57,1,6400.00,39,4),(58,6,1200.00,40,17);
 /*!40000 ALTER TABLE `shop_orderitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -404,7 +404,7 @@ CREATE TABLE `shop_product` (
   PRIMARY KEY (`id`),
   KEY `shop_product_categoria_id_7c34d3e4_fk_shop_category_id` (`categoria_id`),
   CONSTRAINT `shop_product_categoria_id_7c34d3e4_fk_shop_category_id` FOREIGN KEY (`categoria_id`) REFERENCES `shop_category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,4 +426,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-02 19:00:57
+-- Dump completed on 2026-03-02 19:32:57

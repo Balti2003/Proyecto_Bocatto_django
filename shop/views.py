@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
+from django.db.models.functions import TruncDate, TruncMonth
 from django.db.models import Count, Sum
 from shop.mixins import RoleRequiredMixin
 from .forms import LoginForm, ProductForm, RegistrationForm, ContactForm
@@ -231,7 +232,7 @@ class ProductCreateView(LoginRequiredMixin, RoleRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = "../templates/shop/product_form.html"
-    success_url = reverse_lazy("home-empleado")
+    success_url = reverse_lazy("product-manage")
 
 
 class ProductUpdateView(LoginRequiredMixin, RoleRequiredMixin, UpdateView):
@@ -440,23 +441,25 @@ class AdminReportsView(LoginRequiredMixin, RoleRequiredMixin, View):
     def get(self, request):
         # Pedidos por dia
         pedidos_por_dia = (
-            Order.objects.values("fecha__date")
+            Order.objects.annotate(dia=TruncDate("fecha"))
+            .values("dia")
             .annotate(total=Count("id"))
-            .order_by("fecha__date")
+            .order_by("dia")
         )
 
-        labels_dias = [str(x["fecha__date"]) for x in pedidos_por_dia]
-        datos_dias = [x["total"] for x in pedidos_por_dia]
+        labels_dias = [str(x["dia"]) for x in pedidos_por_dia if x["dia"] is not None]
+        datos_dias = [x["total"] for x in pedidos_por_dia if x["dia"] is not None]
 
         # Ingresos por mes
         ingresos_por_mes = (
-            Order.objects.values("fecha__month")
+            Order.objects.annotate(mes=TruncMonth("fecha"))
+            .values("mes")
             .annotate(ingresos=Sum("total"))
-            .order_by("fecha__month")
+            .order_by("mes")
         )
 
-        labels_meses = [f"Mes {x['fecha__month']}" for x in ingresos_por_mes]
-        datos_meses = [float(x["ingresos"] or 0) for x in ingresos_por_mes]
+        labels_meses = [x["mes"].strftime("%B %Y") for x in ingresos_por_mes if x["mes"] is not None]
+        datos_meses = [float(x["ingresos"] or 0) for x in ingresos_por_mes if x["mes"] is not None]
 
         #Estados de pedidos
         estados = (
